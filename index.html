@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO & Identity -->
-    <title>SVG // SYSTEMS | Cloud Architecture</title>
+    <title>AZ // SYSTEMS | Cloud Architecture</title>
     <meta name="description" content="Andrei Zaharia - Senior Cloud Architect. Specializing in high-security infrastructure, automated governance, and multi-cloud strategy for enterprise.">
     
     <!-- Fonts: Syne (Futuristic/Bold) & Inter (Clean) & JetBrains Mono (Code) -->
@@ -16,10 +16,9 @@
     <!-- Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind Config -->
     <script>
-        tailwind.config = {
+        window.tailwindConfig = {
             theme: {
                 extend: {
                     fontFamily: {
@@ -34,7 +33,6 @@
                             900: '#101010',
                             950: '#0a0a0a'
                         },
-                        // "Electric Blue" for Enterprise Trust + "Signal Orange" for alerts
                         cyber: '#3B82F6', 
                         savage: '#ff3333',
                         gold: '#FFD700'
@@ -47,36 +45,48 @@
                     }
                 }
             }
-        }
+        };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = window.tailwindConfig;
     </script>
 
     <style>
         /* Base Reset */
         body { 
-            cursor: none; 
             background-color: #050505; 
             color: #e5e5e5; 
             overflow-x: hidden; 
         }
-        
-        /* Custom Cursor */
-        #cursor {
-            position: fixed;
-            top: 0; left: 0;
-            width: 12px; height: 12px;
-            background-color: #fff;
-            border-radius: 50%;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            z-index: 9999;
-            transition: width 0.3s, height 0.3s, background-color 0.3s, mix-blend-mode 0.3s;
-            mix-blend-mode: difference;
+
+        /* Desktop Cursor */
+        @media (hover: hover) and (pointer: fine) {
+            body { cursor: none; }
+            #cursor {
+                position: fixed;
+                top: 0; left: 0;
+                width: 12px; height: 12px;
+                background-color: #fff;
+                border-radius: 50%;
+                pointer-events: none;
+                transform: translate(-50%, -50%);
+                z-index: 9999;
+                transition: width 0.3s, height 0.3s, background-color 0.3s, mix-blend-mode 0.3s;
+                mix-blend-mode: difference;
+                display: block;
+            }
+            #cursor.hovered {
+                width: 80px; height: 80px;
+                background-color: white;
+                mix-blend-mode: exclusion;
+                opacity: 0.1;
+            }
         }
-        #cursor.hovered {
-            width: 80px; height: 80px;
-            background-color: white;
-            mix-blend-mode: exclusion;
-            opacity: 0.1;
+        
+        /* Mobile Cursor Hide */
+        @media (hover: none) {
+            #cursor { display: none; }
         }
 
         /* Scrollbar */
@@ -97,10 +107,10 @@
         
         /* Animations */
         .reveal-text {
-            clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
-            opacity: 0;
+            opacity: 0; 
             transform: translateY(30px);
             transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+            clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
         }
         .reveal-text.active {
             clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
@@ -108,30 +118,52 @@
             transform: translateY(0);
         }
 
-        /* Horizontal Scroll Logic */
-        .horizontal-section {
-            position: relative;
-            height: 500vh; /* 5 slides (Intro + 4 Cases) * 100vh */
+        /* Desktop Horizontal Scroll Logic */
+        @media (min-width: 768px) {
+            .horizontal-section {
+                position: relative;
+                height: 500vh; /* 5 slides * 100vh */
+            }
+            .sticky-wrapper {
+                position: sticky;
+                top: 0;
+                height: 100vh;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+            }
+            .horizontal-track {
+                display: flex;
+                gap: 0;
+                will-change: transform;
+            }
+            .slide {
+                width: 100vw;
+                height: 100vh;
+                flex-shrink: 0;
+                display: flex;
+            }
         }
-        .sticky-wrapper {
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-        }
-        .horizontal-track {
-            display: flex;
-            gap: 0;
-            will-change: transform;
-        }
-        .slide {
-            width: 100vw;
-            height: 100vh;
-            flex-shrink: 0;
-            display: flex;
-            position: relative;
+
+        /* Mobile Vertical Stack */
+        @media (max-width: 767px) {
+            .horizontal-section {
+                height: auto;
+            }
+            .sticky-wrapper {
+                position: relative;
+                height: auto;
+                display: block;
+            }
+            .horizontal-track {
+                display: flex;
+                flex-direction: column;
+            }
+            .slide {
+                width: 100%;
+                height: 100vh; /* Full screen per slide */
+                min-height: 700px; /* Ensure space for content */
+            }
         }
         
         /* Grid Background */
@@ -140,33 +172,22 @@
             mask-image: radial-gradient(circle at center, black 60%, transparent 100%);
         }
     </style>
-<script type="importmap">
-{
-  "imports": {
-    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "react": "https://aistudiocdn.com/react@^19.2.0",
-    "vite": "https://aistudiocdn.com/vite@^7.2.4",
-    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1"
-  }
-}
-</script>
 </head>
 <body class="antialiased selection:bg-white selection:text-black">
 
-    <!-- Custom Cursor -->
+    <!-- Custom Cursor (Desktop Only via CSS) -->
     <div id="cursor"></div>
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 p-6 md:p-10 flex justify-between items-start mix-blend-difference text-white pointer-events-none">
-        <div class="pointer-events-auto">
-            <a href="#" class="font-display font-bold text-2xl tracking-tighter hoverable block leading-none">
-                SVG // SYSTEMS<span class="text-savage">.</span>
+    <!-- Navigation (Readable Background Added) -->
+    <nav class="fixed top-0 left-0 right-0 z-50 px-6 py-4 md:px-10 md:py-8 flex justify-between items-start bg-black/90 backdrop-blur-md border-b border-white/5 text-white">
+        <div>
+            <a href="#" class="font-display font-bold text-xl md:text-2xl tracking-tighter hoverable block leading-none">
+                AZ // SYSTEMS<span class="text-savage">.</span>
             </a>
-            <span class="font-mono text-[10px] tracking-widest opacity-60 block mt-1">ANDREI ZAHARIA // ARCHITECT</span>
+            <span class="font-mono text-[8px] md:text-[10px] tracking-widest opacity-60 block mt-1">ANDREI ZAHARIA // ARCHITECT</span>
         </div>
         
-        <div class="hidden md:flex flex-col items-end gap-2 font-mono text-xs tracking-widest uppercase pointer-events-auto">
+        <div class="hidden md:flex flex-col items-end gap-2 font-mono text-xs tracking-widest uppercase">
             <a href="#projects-trigger" class="hover:text-savage transition-colors hoverable">[01] Case Studies</a>
             <a href="#credentials" class="hover:text-savage transition-colors hoverable">[02] Credentials</a>
             <a href="#expertise" class="hover:text-savage transition-colors hoverable">[03] Tech Stack</a>
@@ -174,40 +195,42 @@
             <a href="#contact" class="hover:text-savage transition-colors hoverable">[05] Secure Comms</a>
         </div>
 
-        <a href="#contact" class="pointer-events-auto md:hidden border border-white/20 px-4 py-2 rounded-full text-xs font-bold hover:bg-white hover:text-black transition-all hoverable">
-            MENU
+        <a href="#contact" class="md:hidden border border-white/20 px-4 py-2 rounded-full text-[10px] font-bold hover:bg-white hover:text-black transition-all hoverable bg-black/40">
+            CONTACT
         </a>
     </nav>
 
     <!-- Hero Section -->
-    <header class="relative min-h-screen flex flex-col justify-center px-6 md:px-20 overflow-hidden bg-black">
+    <header class="relative min-h-screen flex flex-col justify-center px-6 md:px-20 overflow-hidden bg-black pt-32 md:pt-20">
         <!-- Abstract Background -->
-        <div class="absolute inset-0 opacity-20 pointer-events-none">
+        <div class="absolute inset-0 opacity-20 pointer-events-none z-0">
             <div class="absolute inset-0 bg-grid-pattern opacity-30"></div>
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50vw] h-[50vw] bg-white/5 rounded-full blur-[120px]"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-white/5 rounded-full blur-[100px]"></div>
         </div>
 
-        <div class="relative z-10 max-w-[90vw]">
+        <!-- Main Content -->
+        <div class="relative z-20 w-full md:max-w-[90vw]">
             <div class="mb-6 flex items-center gap-4 overflow-hidden">
                 <span class="block h-[2px] w-8 bg-savage"></span>
-                <span class="text-savage font-mono text-sm tracking-widest font-bold reveal-text">PRINCIPAL INFRASTRUCTURE CONSULTANT</span>
+                <span class="text-savage font-mono text-xs md:text-sm tracking-widest font-bold reveal-text">PRINCIPAL INFRASTRUCTURE CONSULTANT</span>
             </div>
 
-            <h1 class="font-display font-bold text-[13vw] leading-[0.8] tracking-tighter text-white uppercase reveal-text mix-blend-screen">
+            <!-- Adjusted sizes for mobile fitting: viewport based sizing (text-[12vw]) ensures it always fits -->
+            <h1 class="font-display font-bold text-[12vw] md:text-[13vw] leading-[0.9] md:leading-[0.8] tracking-tighter text-white uppercase reveal-text mix-blend-screen">
                 ENTERPRISE
             </h1>
-            <h1 class="font-display font-bold text-[13vw] leading-[0.8] tracking-tighter text-outline uppercase mb-8 reveal-text">
+            <h1 class="font-display font-bold text-[12vw] md:text-[13vw] leading-[0.9] md:leading-[0.8] tracking-tighter text-outline uppercase mb-8 reveal-text">
                 ARCHITECT
             </h1>
 
             <div class="grid md:grid-cols-12 gap-8 mt-12 items-end">
                 <div class="md:col-span-5 reveal-text" style="transition-delay: 0.2s;">
-                    <p class="font-sans text-white/70 text-lg md:text-xl leading-relaxed">
+                    <p class="font-sans text-white/70 text-sm md:text-xl leading-relaxed">
                         I engineer <strong>production-ready, multi-cloud platforms</strong> for Tier-1 global organizations. Specializing in Landing Zone architecture, Python automation, and zero-trust security.
                     </p>
                 </div>
                 
-                <div class="md:col-span-7 flex flex-col md:flex-row gap-8 justify-end reveal-text font-mono text-xs text-white/50" style="transition-delay: 0.4s;">
+                <div class="md:col-span-7 flex flex-wrap md:flex-row gap-8 justify-start md:justify-end reveal-text font-mono text-xs text-white/50" style="transition-delay: 0.4s;">
                    <div>
                        <span class="block text-white mb-1">CLIENTS</span>
                        REGNOLOGY, GOOGLE, LSEG
@@ -225,41 +248,44 @@
         </div>
     </header>
 
-    <!-- Project Gallery (Horizontal Scroll) -->
+    <!-- Project Gallery (Sticky Horizontal on Desktop / Stacked on Mobile) -->
     <div id="projects-trigger" class="horizontal-section bg-zinc-950">
         <div class="sticky-wrapper">
             <div class="horizontal-track" id="track">
                 
                 <!-- Slide 1: Intro Card -->
-                <div class="slide bg-black border-r border-white/5 items-center justify-center">
-                    <div class="max-w-4xl w-full px-6 text-center md:text-left">
+                <div class="slide bg-black border-r border-white/5 items-center justify-center relative">
+                    <div class="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none"></div>
+                    <div class="max-w-4xl w-full px-6 text-center md:text-left relative z-10 pt-20 md:pt-0">
                         <span class="text-savage font-mono text-xl mb-4 block">01 // CASE STUDIES</span>
-                        <h2 class="font-display font-bold text-6xl md:text-8xl text-white mb-8">
+                        <h2 class="font-display font-bold text-5xl md:text-8xl text-white mb-8">
                             PROOF OF<br><span class="text-outline">COMPETENCE</span>
                         </h2>
                         <div class="flex flex-col md:flex-row gap-8 text-white/50 font-mono text-sm max-w-2xl">
                             <p>Strategic interventions for Fortune 500 clients. These projects demonstrate ability to operate autonomously and deliver critical infrastructure.</p>
                             <div class="flex items-center gap-2 text-white hoverable">
-                                <span>SCROLL TO DECLASSIFY</span>
-                                <i data-lucide="arrow-right"></i>
+                                <span class="hidden md:inline">SCROLL TO DECLASSIFY</span>
+                                <span class="md:hidden">SCROLL DOWN</span>
+                                <i data-lucide="arrow-right" class="hidden md:inline"></i>
+                                <i data-lucide="arrow-down" class="md:hidden"></i>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Slide 2: Regnology (SOLO ARCHITECT) -->
+                <!-- Slide 2: Regnology (SOLO ARCHITECT) - Infrastructure/Server BG -->
                 <div class="slide relative overflow-hidden bg-zinc-900 border-r border-white/5">
-                    <div class="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop')] bg-cover bg-center"></div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
+                    <div class="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1504384308090-c54be3855833?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/90 to-black/20"></div>
                     
-                    <div class="relative z-10 w-full h-full p-8 md:p-20 flex flex-col justify-end">
-                        <div class="grid md:grid-cols-2 gap-12 items-end">
+                    <div class="relative z-10 w-full h-full p-6 md:p-20 flex flex-col justify-end pb-20 md:pb-20">
+                        <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-end">
                             <div>
                                 <div class="flex items-center gap-3 mb-6">
-                                    <span class="bg-savage text-black text-xs font-bold px-2 py-1 font-mono">REGULATORY TECH</span>
-                                    <span class="text-white/60 font-mono text-xs tracking-widest">REGNOLOGY</span>
+                                    <span class="bg-savage text-black text-[10px] md:text-xs font-bold px-2 py-1 font-mono">REGULATORY TECH</span>
+                                    <span class="text-white/60 font-mono text-[10px] md:text-xs tracking-widest">REGNOLOGY</span>
                                 </div>
-                                <h3 class="font-display font-bold text-5xl md:text-6xl text-white mb-6 leading-none">THE SOLO<br>LANDING ZONE</h3>
+                                <h3 class="font-display font-bold text-4xl md:text-6xl text-white mb-6 leading-none">THE SOLO<br>LANDING ZONE</h3>
                                 
                                 <div class="space-y-6 max-w-md">
                                     <div>
@@ -273,41 +299,41 @@
                                 </div>
                             </div>
 
-                            <div class="bg-white/5 backdrop-blur-md p-8 border border-white/10 rounded-lg">
+                            <div class="bg-white/5 backdrop-blur-md p-6 md:p-8 border border-white/10 rounded-lg mt-4 md:mt-0">
                                 <div class="text-xs font-mono text-white/50 mb-4 border-b border-white/10 pb-2">IMPACT METRICS</div>
                                 <div class="grid grid-cols-2 gap-8 mb-8">
                                     <div>
-                                        <div class="text-4xl font-display font-bold text-white">100%</div>
+                                        <div class="text-3xl md:text-4xl font-display font-bold text-white">100%</div>
                                         <div class="text-xs text-white/50">Solo Implementation</div>
                                     </div>
                                     <div>
-                                        <div class="text-4xl font-display font-bold text-white">3-Cloud</div>
+                                        <div class="text-3xl md:text-4xl font-display font-bold text-white">3-Cloud</div>
                                         <div class="text-xs text-white/50">Unified Strategy</div>
                                     </div>
                                 </div>
                                 <div class="flex flex-wrap gap-2">
                                     <span class="px-2 py-1 bg-black/50 border border-white/20 text-xs font-mono text-white rounded">Terraform Expert</span>
                                     <span class="px-2 py-1 bg-black/50 border border-white/20 text-xs font-mono text-white rounded">Multi-Cloud</span>
-                                    <span class="px-2 py-1 bg-black/50 border border-white/20 text-xs font-mono text-white rounded">Jira Automation</span>
+                                    <span class="px-2 py-1 bg-black/50 border border-white/20 text-xs font-mono text-white rounded">Jira Auto</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Slide 3: LSEG Case Study -->
+                <!-- Slide 3: LSEG Case Study - Financial/Data BG -->
                 <div class="slide relative overflow-hidden bg-zinc-900 border-r border-white/5">
-                    <div class="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=2232&auto=format&fit=crop')] bg-cover bg-center"></div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
+                    <div class="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/90 to-black/20"></div>
                     
-                    <div class="relative z-10 w-full h-full p-8 md:p-20 flex flex-col justify-end">
-                        <div class="grid md:grid-cols-2 gap-12 items-end">
+                    <div class="relative z-10 w-full h-full p-6 md:p-20 flex flex-col justify-end pb-20 md:pb-20">
+                        <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-end">
                             <div>
                                 <div class="flex items-center gap-3 mb-6">
-                                    <span class="bg-white text-black text-xs font-bold px-2 py-1 font-mono">FINTECH</span>
-                                    <span class="text-white/60 font-mono text-xs tracking-widest">LSEG (LONDON STOCK EXCHANGE)</span>
+                                    <span class="bg-white text-black text-[10px] md:text-xs font-bold px-2 py-1 font-mono">FINTECH</span>
+                                    <span class="text-white/60 font-mono text-[10px] md:text-xs tracking-widest">LSEG</span>
                                 </div>
-                                <h3 class="font-display font-bold text-5xl md:text-6xl text-white mb-6 leading-none">GLOBAL FINOPS<br>GOVERNANCE</h3>
+                                <h3 class="font-display font-bold text-4xl md:text-6xl text-white mb-6 leading-none">GLOBAL FINOPS<br>GOVERNANCE</h3>
                                 
                                 <div class="space-y-6 max-w-md">
                                     <div>
@@ -321,15 +347,15 @@
                                 </div>
                             </div>
 
-                            <div class="bg-white/5 backdrop-blur-md p-8 border border-white/10 rounded-lg">
+                            <div class="bg-white/5 backdrop-blur-md p-6 md:p-8 border border-white/10 rounded-lg mt-4 md:mt-0">
                                 <div class="text-xs font-mono text-white/50 mb-4 border-b border-white/10 pb-2">IMPACT METRICS</div>
                                 <div class="grid grid-cols-2 gap-8 mb-8">
                                     <div>
-                                        <div class="text-4xl font-display font-bold text-white">$1.2M</div>
+                                        <div class="text-3xl md:text-4xl font-display font-bold text-white">$1.2M</div>
                                         <div class="text-xs text-white/50">Annual Savings</div>
                                     </div>
                                     <div>
-                                        <div class="text-4xl font-display font-bold text-white">90%</div>
+                                        <div class="text-3xl md:text-4xl font-display font-bold text-white">90%</div>
                                         <div class="text-xs text-white/50">Auto-Compliance</div>
                                     </div>
                                 </div>
@@ -343,19 +369,19 @@
                     </div>
                 </div>
 
-                <!-- Slide 4: Vodafone (Added) -->
+                <!-- Slide 4: Vodafone (Added) - Network/Connectivity BG -->
                 <div class="slide relative overflow-hidden bg-zinc-900 border-r border-white/5">
-                    <div class="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1544197150-b99a580bbcbf?q=80&w=2071&auto=format&fit=crop')] bg-cover bg-center"></div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
+                    <div class="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1520869562399-e772f042f422?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/90 to-black/20"></div>
                     
-                    <div class="relative z-10 w-full h-full p-8 md:p-20 flex flex-col justify-end">
-                        <div class="grid md:grid-cols-2 gap-12 items-end">
+                    <div class="relative z-10 w-full h-full p-6 md:p-20 flex flex-col justify-end pb-20 md:pb-20">
+                        <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-end">
                             <div>
                                 <div class="flex items-center gap-3 mb-6">
-                                    <span class="bg-savage text-black text-xs font-bold px-2 py-1 font-mono">TELECOM</span>
-                                    <span class="text-white/60 font-mono text-xs tracking-widest">_VOIS (VODAFONE)</span>
+                                    <span class="bg-savage text-black text-[10px] md:text-xs font-bold px-2 py-1 font-mono">TELECOM</span>
+                                    <span class="text-white/60 font-mono text-[10px] md:text-xs tracking-widest">_VOIS (VODAFONE)</span>
                                 </div>
-                                <h3 class="font-display font-bold text-5xl md:text-6xl text-white mb-6 leading-none">CROSS-CLOUD<br>IPAM NEXUS</h3>
+                                <h3 class="font-display font-bold text-4xl md:text-6xl text-white mb-6 leading-none">CROSS-CLOUD<br>IPAM NEXUS</h3>
                                 
                                 <div class="space-y-6 max-w-md">
                                     <div>
@@ -369,15 +395,15 @@
                                 </div>
                             </div>
 
-                            <div class="bg-white/5 backdrop-blur-md p-8 border border-white/10 rounded-lg">
+                            <div class="bg-white/5 backdrop-blur-md p-6 md:p-8 border border-white/10 rounded-lg mt-4 md:mt-0">
                                 <div class="text-xs font-mono text-white/50 mb-4 border-b border-white/10 pb-2">IMPACT METRICS</div>
                                 <div class="grid grid-cols-2 gap-8 mb-8">
                                     <div>
-                                        <div class="text-4xl font-display font-bold text-white">50%</div>
+                                        <div class="text-3xl md:text-4xl font-display font-bold text-white">50%</div>
                                         <div class="text-xs text-white/50">Ops Load Reduction</div>
                                     </div>
                                     <div>
-                                        <div class="text-4xl font-display font-bold text-white">API</div>
+                                        <div class="text-3xl md:text-4xl font-display font-bold text-white">API</div>
                                         <div class="text-xs text-white/50">Custom IPAM Tool</div>
                                     </div>
                                 </div>
@@ -391,19 +417,19 @@
                     </div>
                 </div>
 
-                <!-- Slide 5: Stealth AI & Python -->
+                <!-- Slide 5: Stealth AI & Python - AI/Grid BG -->
                 <div class="slide relative overflow-hidden bg-zinc-900">
-                    <div class="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1965&auto=format&fit=crop')] bg-cover bg-center"></div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
+                    <div class="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1965&auto=format&fit=crop')] bg-cover bg-center"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/90 to-black/20"></div>
                     
-                    <div class="relative z-10 w-full h-full p-8 md:p-20 flex flex-col justify-end">
-                        <div class="grid md:grid-cols-2 gap-12 items-end">
+                    <div class="relative z-10 w-full h-full p-6 md:p-20 flex flex-col justify-end pb-20 md:pb-20">
+                        <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-end">
                             <div>
                                 <div class="flex items-center gap-3 mb-6">
-                                    <span class="bg-savage text-black text-xs font-bold px-2 py-1 font-mono">STEALTH AI</span>
-                                    <span class="text-white/60 font-mono text-xs tracking-widest">DATA ENGINEERING</span>
+                                    <span class="bg-savage text-black text-[10px] md:text-xs font-bold px-2 py-1 font-mono">STEALTH AI</span>
+                                    <span class="text-white/60 font-mono text-[10px] md:text-xs tracking-widest">DATA ENGINEERING</span>
                                 </div>
-                                <h3 class="font-display font-bold text-5xl md:text-6xl text-white mb-6 leading-none">SENTIMENT<br>GRID ENGINE</h3>
+                                <h3 class="font-display font-bold text-4xl md:text-6xl text-white mb-6 leading-none">SENTIMENT<br>GRID ENGINE</h3>
                                 
                                 <div class="space-y-6 max-w-md">
                                     <div>
@@ -417,22 +443,22 @@
                                 </div>
                             </div>
 
-                            <div class="bg-white/5 backdrop-blur-md p-8 border border-white/10 rounded-lg">
+                            <div class="bg-white/5 backdrop-blur-md p-6 md:p-8 border border-white/10 rounded-lg mt-4 md:mt-0">
                                 <div class="text-xs font-mono text-white/50 mb-4 border-b border-white/10 pb-2">IMPACT METRICS</div>
                                 <div class="grid grid-cols-2 gap-8 mb-8">
                                     <div>
-                                        <div class="text-4xl font-display font-bold text-white">99.9%</div>
+                                        <div class="text-3xl md:text-4xl font-display font-bold text-white">99.9%</div>
                                         <div class="text-xs text-white/50">Uptime Reliability</div>
                                     </div>
                                     <div>
-                                        <div class="text-4xl font-display font-bold text-white">CI/CD</div>
+                                        <div class="text-3xl md:text-4xl font-display font-bold text-white">CI/CD</div>
                                         <div class="text-xs text-white/50">GitLab Pipelines</div>
                                     </div>
                                 </div>
                                 <div class="flex flex-wrap gap-2">
                                     <span class="px-2 py-1 bg-black/50 border border-white/20 text-xs font-mono text-white rounded">Python</span>
                                     <span class="px-2 py-1 bg-black/50 border border-white/20 text-xs font-mono text-white rounded">GitLab CI</span>
-                                    <span class="px-2 py-1 bg-black/50 border border-white/20 text-xs font-mono text-white rounded">Data Engineering</span>
+                                    <span class="px-2 py-1 bg-black/50 border border-white/20 text-xs font-mono text-white rounded">Data Eng</span>
                                 </div>
                             </div>
                         </div>
@@ -443,7 +469,7 @@
         </div>
     </div>
     
-    <!-- Credentials Vault (Added) -->
+    <!-- Credentials Vault -->
     <section id="credentials" class="bg-black py-20 border-t border-white/10 relative overflow-hidden">
         <!-- Abstract Decoration -->
         <div class="absolute right-0 top-0 w-1/3 h-full bg-gradient-to-l from-zinc-900 to-transparent opacity-50 pointer-events-none"></div>
@@ -464,18 +490,18 @@
 
             <!-- Kubestronaut Hero Card -->
             <div class="mb-8 p-1 bg-gradient-to-r from-yellow-600 via-yellow-400 to-yellow-600 rounded-lg hoverable">
-                <div class="bg-black p-8 rounded flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="bg-black p-5 md:p-8 rounded flex flex-col md:flex-row items-center justify-between gap-8">
                     <div class="flex items-center gap-6">
-                        <div class="w-16 h-16 bg-yellow-500/10 rounded-full flex items-center justify-center border border-yellow-500/50 text-yellow-500">
+                        <div class="w-16 h-16 bg-yellow-500/10 rounded-full flex items-center justify-center border border-yellow-500/50 text-yellow-500 shrink-0">
                              <i data-lucide="award" class="w-8 h-8"></i>
                         </div>
                         <div>
-                            <h3 class="text-2xl font-bold text-white uppercase tracking-tight">Kubestronaut</h3>
+                            <h3 class="text-xl md:text-2xl font-bold text-white uppercase tracking-tight">Kubestronaut</h3>
                             <p class="text-yellow-500 font-mono text-xs tracking-widest mt-1">CNCF KUBERNETES EXPERT</p>
                         </div>
                     </div>
                     <div class="text-right md:text-left">
-                         <div class="text-3xl font-bold text-white">4th</div>
+                         <div class="text-2xl md:text-3xl font-bold text-white">4th</div>
                          <div class="text-xs text-white/50 font-mono">RANK IN ROMANIA</div>
                     </div>
                 </div>
@@ -483,10 +509,10 @@
 
             <div class="grid md:grid-cols-2 gap-8">
                 <!-- GCP Dominance -->
-                <div class="border border-white/10 p-8 rounded bg-zinc-900/30 backdrop-blur-sm">
+                <div class="border border-white/10 p-6 md:p-8 rounded bg-zinc-900/30 backdrop-blur-sm">
                     <div class="flex items-center gap-3 mb-8">
                         <i data-lucide="cloud-lightning" class="text-cyber"></i>
-                        <h3 class="font-bold text-white uppercase tracking-wider">Google Cloud Professional</h3>
+                        <h3 class="font-bold text-white uppercase tracking-wider text-sm md:text-base">Google Cloud Professional</h3>
                     </div>
                     <div class="grid grid-cols-1 gap-4">
                         <div class="flex items-center justify-between border-b border-white/5 pb-2">
@@ -517,10 +543,10 @@
                 </div>
 
                 <!-- Multi-Cloud & Tools -->
-                <div class="border border-white/10 p-8 rounded bg-zinc-900/30 backdrop-blur-sm">
+                <div class="border border-white/10 p-6 md:p-8 rounded bg-zinc-900/30 backdrop-blur-sm">
                     <div class="flex items-center gap-3 mb-8">
                         <i data-lucide="shield-check" class="text-savage"></i>
-                        <h3 class="font-bold text-white uppercase tracking-wider">Multi-Cloud & Security</h3>
+                        <h3 class="font-bold text-white uppercase tracking-wider text-sm md:text-base">Multi-Cloud & Security</h3>
                     </div>
                     <div class="space-y-6">
                         <div>
@@ -622,7 +648,7 @@
                     </div>
                 </div>
 
-                <!-- Role 2: Regnology (Added) -->
+                <!-- Role 2: Regnology -->
                 <div class="relative pl-12 md:pl-20 group">
                     <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-zinc-800 border border-white/20 rounded-full group-hover:bg-savage transition-colors"></div>
                     <div class="grid md:grid-cols-12 gap-8">
@@ -681,7 +707,7 @@
                     </div>
                 </div>
 
-                <!-- Role 5: Ericsson (Added) -->
+                <!-- Role 5: Ericsson -->
                 <div class="relative pl-12 md:pl-20 group">
                     <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-zinc-800 border border-white/20 rounded-full group-hover:bg-savage transition-colors"></div>
                     <div class="grid md:grid-cols-12 gap-8">
@@ -709,16 +735,54 @@
     </section>
 
     <!-- Social Proof -->
-    <section class="bg-black py-32 flex items-center justify-center relative border-t border-white/5">
-        <div class="container mx-auto px-6 text-center max-w-4xl relative z-10">
-            <i data-lucide="quote" class="w-12 h-12 text-savage mx-auto mb-8 opacity-80"></i>
-            <h3 class="font-display font-bold text-3xl md:text-5xl text-white leading-tight mb-12 hoverable">
-                "Andrei doesn't just build infrastructure; he builds fortresses. His focus on automation paid for his contract ten times over."
-            </h3>
-            <div class="flex items-center justify-center gap-4">
-                <div class="text-left">
-                    <div class="text-white font-bold text-sm tracking-widest">ENGINEERING DIRECTOR</div>
-                    <div class="text-savage text-xs font-mono">LSEG (London Stock Exchange)</div>
+    <section class="bg-black py-20 md:py-32 relative border-t border-white/5">
+         <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                 <span class="text-savage font-mono text-sm block mb-4">05 // CONFIDENTIAL REFERENCES</span>
+                 <h2 class="font-display font-bold text-4xl md:text-5xl text-white">ENDORSEMENTS</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Endorsement 1 -->
+                <div class="bg-zinc-900/50 p-8 rounded border border-white/5 hover:border-savage/30 transition-colors">
+                    <i data-lucide="quote" class="w-8 h-8 text-savage mb-6 opacity-80"></i>
+                    <p class="text-white/80 font-sans text-sm leading-relaxed mb-8 h-32">
+                        "Andrei engineered our entire multi-cloud foundation solo. The automation he built allowed us to migrate critical workloads in weeks, not months. A true force multiplier."
+                    </p>
+                    <div class="flex items-center gap-4 border-t border-white/5 pt-4">
+                        <div>
+                            <div class="text-white font-bold text-sm">CTO / TECHNICAL DIRECTOR</div>
+                            <div class="text-xs font-mono text-white/50">REGNOLOGY</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Endorsement 2 -->
+                <div class="bg-zinc-900/50 p-8 rounded border border-white/5 hover:border-savage/30 transition-colors">
+                    <i data-lucide="quote" class="w-8 h-8 text-savage mb-6 opacity-80"></i>
+                    <p class="text-white/80 font-sans text-sm leading-relaxed mb-8 h-32">
+                        "The IPAM API Andrei built solved a year-long headache for our network team. He understands the intersection of code and infrastructure better than anyone I've worked with."
+                    </p>
+                    <div class="flex items-center gap-4 border-t border-white/5 pt-4">
+                        <div>
+                            <div class="text-white font-bold text-sm">PRODUCT OWNER</div>
+                            <div class="text-xs font-mono text-white/50">VODAFONE (_VOIS)</div>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Endorsement 3 -->
+                 <div class="bg-zinc-900/50 p-8 rounded border border-white/5 hover:border-savage/30 transition-colors">
+                    <i data-lucide="quote" class="w-8 h-8 text-savage mb-6 opacity-80"></i>
+                    <p class="text-white/80 font-sans text-sm leading-relaxed mb-8 h-32">
+                        "Andrei's focus on automation paid for his contract ten times over. He doesn't just build infrastructure; he builds fortresses that run themselves."
+                    </p>
+                    <div class="flex items-center gap-4 border-t border-white/5 pt-4">
+                        <div>
+                            <div class="text-white font-bold text-sm">ENGINEERING LEAD</div>
+                            <div class="text-xs font-mono text-white/50">LSEG</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -730,7 +794,7 @@
             <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-12 mb-24">
                 <div>
                     <span class="text-savage font-mono text-xs block mb-4 tracking-widest">SECURE CHANNEL OPEN</span>
-                    <h2 class="font-display font-bold text-6xl md:text-8xl text-white mb-8 hoverable">
+                    <h2 class="font-display font-bold text-5xl md:text-8xl text-white mb-8 hoverable">
                         INITIATE<br><span class="text-outline">PROTOCOL</span>
                     </h2>
                     <a href="mailto:andrei.on.cloud@gmail.com" class="inline-block px-8 py-4 bg-white text-black font-bold tracking-widest text-sm hover:bg-savage hover:text-white transition-colors hoverable">
@@ -751,65 +815,95 @@
             </div>
 
             <div class="flex justify-between items-center pt-8 border-t border-white/10 text-white/30 text-xs font-mono">
-                <span>© 2025 SVG // SYSTEMS</span>
+                <span>© 2025 AZ // SYSTEMS</span>
                 <span class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-green-500 rounded-full"></div> SYSTEMS OPTIMAL</span>
             </div>
         </div>
     </footer>
 
     <script>
-        // Init Icons
-        lucide.createIcons();
-
-        // Cursor Logic
-        const cursor = document.getElementById('cursor');
-        const hoverables = document.querySelectorAll('.hoverable');
-
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-
-        hoverables.forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
-        });
-
-        // Horizontal Scroll Logic
-        const track = document.getElementById('track');
-        const container = document.querySelector('.horizontal-section');
-        
-        window.addEventListener('scroll', () => {
-            const containerTop = container.offsetTop;
-            const containerHeight = container.offsetHeight;
-            const windowHeight = window.innerHeight;
-            const scrollY = window.scrollY;
-
-            // Start scrolling when top of container hits top of viewport
-            if (scrollY >= containerTop && scrollY <= (containerTop + containerHeight - windowHeight)) {
-                // Calculate percentage scrolled within the container
-                const scrolled = scrollY - containerTop;
-                const maxScroll = containerHeight - windowHeight;
-                const progress = scrolled / maxScroll;
-                
-                // Translate the track horizontally
-                // We have 5 slides (Intro + 4 Cases), so we need to move (5-1) = 400vw
-                const moveAmount = progress * (window.innerWidth * 4);
-                track.style.transform = `translateX(-${moveAmount}px)`;
-            }
-        });
-
-        // Text Reveal Observer
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
+        document.addEventListener('DOMContentLoaded', () => {
+            // Safe Icon Loading
+            try {
+                if (window.lucide) {
+                    lucide.createIcons();
                 }
-            });
-        }, { threshold: 0.1 });
+            } catch (e) {
+                console.warn('Icon loading failed, continuing rendering', e);
+            }
 
-        document.querySelectorAll('.reveal-text, .reveal-image').forEach(el => {
-            observer.observe(el);
+            // Cursor Logic (Wrapped for safety)
+            const cursor = document.getElementById('cursor');
+            const hoverables = document.querySelectorAll('.hoverable');
+
+            if (cursor && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+                document.addEventListener('mousemove', (e) => {
+                    cursor.style.left = e.clientX + 'px';
+                    cursor.style.top = e.clientY + 'px';
+                });
+
+                hoverables.forEach(el => {
+                    el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+                    el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+                });
+            }
+
+            // Horizontal Scroll Logic (Desktop Only)
+            const track = document.getElementById('track');
+            const container = document.querySelector('.horizontal-section');
+            
+            if (track && container && window.innerWidth >= 768) {
+                window.addEventListener('scroll', () => {
+                    // Double check width in case of resize
+                    if (window.innerWidth < 768) return;
+                    
+                    const containerTop = container.offsetTop;
+                    const containerHeight = container.offsetHeight;
+                    const windowHeight = window.innerHeight;
+                    const scrollY = window.scrollY;
+
+                    if (scrollY >= containerTop && scrollY <= (containerTop + containerHeight - windowHeight)) {
+                        const scrolled = scrollY - containerTop;
+                        const maxScroll = containerHeight - windowHeight;
+                        const progress = scrolled / maxScroll;
+                        
+                        // 5 slides total = 400vw movement
+                        const moveAmount = progress * (window.innerWidth * 4);
+                        track.style.transform = `translateX(-${moveAmount}px)`;
+                    }
+                });
+            }
+
+            // Robust Text Reveal Observer
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px" // Trigger slightly before element is fully visible
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // Optional: Stop observing once revealed
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.reveal-text, .reveal-image');
+            revealElements.forEach(el => {
+                observer.observe(el);
+            });
+
+            // FALLBACK: Force reveal Hero elements after 100ms
+            setTimeout(() => {
+                const heroReveals = document.querySelectorAll('header .reveal-text');
+                heroReveals.forEach(el => {
+                    if (!el.classList.contains('active')) {
+                        el.classList.add('active');
+                    }
+                });
+            }, 100);
         });
     </script>
 </body>
