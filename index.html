@@ -5,26 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO & Identity -->
-    <title>Andrei Zaharia | Senior Cloud Architect & DevOps Consultant</title>
-    <meta name="description" content="Portfolio of Andrei Zaharia, a Senior Cloud DevOps Engineer specializing in Multi-Cloud Architecture (AWS, GCP, Azure), Terraform, Kubernetes, and High-Security Infrastructure.">
-    <meta name="keywords" content="DevOps, Cloud Architect, Terraform, Kubernetes, GCP, AWS, Azure, FinOps, DevSecOps">
-    <meta name="author" content="Andrei Zaharia">
+    <title>Andrei Zaharia | Elite Cloud Architect</title>
+    <meta name="description" content="Portfolio of Andrei Zaharia, a Senior Cloud DevOps Engineer specializing in Multi-Cloud Architecture.">
     
-    <!-- Open Graph -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Andrei Zaharia - Elite Cloud Architect">
-    <meta property="og:description" content="Mission-Critical Multi-Cloud Infrastructure & Security Governance.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1200">
-
-    <!-- Fonts -->
+    <!-- Fonts: Syne (Futuristic/Bold) & Inter (Clean) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
     
-    <!-- Icons (Lucide) -->
+    <!-- Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- Tailwind CSS (CDN for standalone usage) -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -32,21 +24,19 @@
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
+                        display: ['Syne', 'sans-serif'],
                     },
                     colors: {
-                        cyber: {
-                            950: '#020617',
-                            900: '#0f172a',
-                            800: '#1e293b',
-                            700: '#334155',
-                            500: '#0ea5e9', // Sky Blue
-                            400: '#38bdf8',
-                        }
+                        black: '#050505',
+                        zinc: {
+                            900: '#101010',
+                            800: '#1a1a1a'
+                        },
+                        accent: '#FF3B30', // Industrial Red accent or keep blue? Let's go Cyber Blue to maintain identity but style like Orano
+                        cyber: '#00F0FF'
                     },
-                    animation: {
-                        'spin-slow': 'spin 12s linear infinite',
-                        'bounce-slow': 'bounce 3s infinite',
+                    cursor: {
+                        'none': 'none',
                     }
                 }
             }
@@ -54,709 +44,508 @@
     </script>
 
     <style>
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #020617; }
-        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #0ea5e9; }
+        /* Hide Default Cursor */
+        body { cursor: none; background-color: #050505; color: #ffffff; overflow-x: hidden; }
         
-        /* Reveal Animation Classes */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        /* Custom Cursor */
+        #cursor {
+            position: fixed;
+            top: 0; left: 0;
+            width: 20px; height: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            transition: width 0.3s, height 0.3s, background-color 0.3s;
+            mix-blend-mode: difference;
         }
-        .reveal.active {
+        #cursor.hovered {
+            width: 50px; height: 50px;
+            background-color: white;
+            border-color: white;
+            mix-blend-mode: exclusion;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #333; }
+
+        /* Typography Utilities */
+        .text-outline {
+            -webkit-text-stroke: 1px rgba(255,255,255,0.2);
+            color: transparent;
+        }
+        
+        /* Animations */
+        .reveal-text {
+            clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-text.active {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
             opacity: 1;
             transform: translateY(0);
+        }
+
+        .reveal-image {
+            clip-path: inset(100% 0 0 0);
+            transition: clip-path 1.5s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        .reveal-image.active {
+            clip-path: inset(0 0 0 0);
+        }
+
+        /* Horizontal Scroll Logic */
+        .horizontal-section {
+            position: relative;
+            height: 400vh; /* 4 slides * 100vh */
+        }
+        .sticky-wrapper {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+        .horizontal-track {
+            display: flex;
+            gap: 0;
+            will-change: transform;
+        }
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
         }
     </style>
 <script type="importmap">
 {
   "imports": {
-    "react": "https://aistudiocdn.com/react@^19.2.0",
     "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
     "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
     "vite": "https://aistudiocdn.com/vite@^7.2.4",
     "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1"
   }
 }
 </script>
 </head>
-<body class="bg-cyber-950 text-slate-300 font-sans antialiased selection:bg-cyber-500 selection:text-white overflow-x-hidden">
+<body class="antialiased selection:bg-cyber selection:text-black">
+
+    <!-- Custom Cursor -->
+    <div id="cursor"></div>
 
     <!-- Navigation -->
-    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-6">
-        <div class="container mx-auto px-6 flex justify-between items-center">
-            <a href="#" class="text-xl font-bold tracking-widest text-white font-mono group flex items-center gap-2">
-                <span class="text-cyber-500 group-hover:animate-pulse">&gt;_</span> 
-                <span>AZ.CLOUD</span>
-            </a>
-
-            <!-- Desktop Menu -->
-            <div class="hidden md:flex items-center gap-8">
-                <a href="#projects" class="text-xs font-mono text-slate-400 hover:text-cyber-400 tracking-widest transition-colors">PROJECTS</a>
-                <a href="#experience" class="text-xs font-mono text-slate-400 hover:text-cyber-400 tracking-widest transition-colors">EXPERIENCE</a>
-                <a href="#certifications" class="text-xs font-mono text-slate-400 hover:text-cyber-400 tracking-widest transition-colors">CREDENTIALS</a>
-                <a href="#skills" class="text-xs font-mono text-slate-400 hover:text-cyber-400 tracking-widest transition-colors">SKILLS</a>
-                <a href="#contact" class="ml-4 px-5 py-2 border border-cyber-500/30 bg-cyber-500/10 text-cyber-500 text-xs font-mono font-bold rounded hover:bg-cyber-500 hover:text-black transition-all shadow-[0_0_10px_rgba(14,165,233,0.1)]">
-                    HIRE_ENGINEER
-                </a>
-            </div>
-
-            <!-- Mobile Menu Button -->
-            <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-white">
-                <i data-lucide="menu"></i>
-            </button>
+    <nav class="fixed top-0 left-0 right-0 z-50 p-8 flex justify-between items-center mix-blend-difference text-white">
+        <a href="#" class="font-display font-bold text-xl tracking-tighter hoverable">AZ. ARCHITECT</a>
+        
+        <div class="hidden md:flex gap-12 font-sans text-xs tracking-widest uppercase">
+            <a href="#projects-trigger" class="hover:text-cyber transition-colors hoverable">Case Studies</a>
+            <a href="#expertise" class="hover:text-cyber transition-colors hoverable">Expertise</a>
+            <a href="#contact" class="hover:text-cyber transition-colors hoverable">Contact</a>
         </div>
 
-        <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu" class="hidden absolute top-full left-0 right-0 bg-cyber-900 border-b border-cyber-800 p-6 flex-col gap-4 shadow-2xl">
-            <a href="#projects" class="text-sm font-mono text-slate-300 hover:text-cyber-400 py-2 border-b border-cyber-800/50 mobile-link">PROJECTS</a>
-            <a href="#experience" class="text-sm font-mono text-slate-300 hover:text-cyber-400 py-2 border-b border-cyber-800/50 mobile-link">EXPERIENCE</a>
-            <a href="#certifications" class="text-sm font-mono text-slate-300 hover:text-cyber-400 py-2 border-b border-cyber-800/50 mobile-link">CREDENTIALS</a>
-            <a href="#skills" class="text-sm font-mono text-slate-300 hover:text-cyber-400 py-2 border-b border-cyber-800/50 mobile-link">SKILLS</a>
-            <a href="#contact" class="text-sm font-mono text-cyber-500 font-bold py-2 mobile-link">CONTACT ME</a>
-        </div>
+        <a href="#contact" class="border border-white/20 px-6 py-2 rounded-full text-xs font-bold tracking-widest hover:bg-white hover:text-black transition-all hoverable">
+            AVAILABLE FOR HIRE
+        </a>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="relative min-h-screen flex items-center justify-center pt-20 pb-10 overflow-hidden">
-        <!-- Grid Background -->
-        <div class="absolute inset-0 z-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20"></div>
+    <header class="relative min-h-screen flex flex-col justify-center px-6 md:px-20 overflow-hidden bg-black">
+        <!-- Background Video/Image Placeholder -->
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,240,255,0.1),transparent_70%)]"></div>
+            <!-- Grid -->
+            <div class="w-full h-full" style="background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px); background-size: 50px 50px;"></div>
+        </div>
 
-        <div class="container mx-auto px-6 relative z-10 grid md:grid-cols-2 gap-12 items-center">
-            
-            <div class="order-2 md:order-1 space-y-6 reveal active">
-                <div class="inline-flex items-center space-x-2 bg-cyber-900/50 border border-cyber-800 rounded-full px-4 py-1.5 backdrop-blur-sm">
-                    <span class="relative flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyber-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-cyber-500"></span>
-                    </span>
-                    <span class="text-sm font-mono text-cyber-400">Clearance Level: ARCHITECT</span>
-                </div>
-                
-                <h1 class="text-5xl md:text-7xl font-bold tracking-tight text-white leading-tight">
-                    <span class="text-cyber-500">Dev</span>Ops <br />
-                    <span class="text-slate-500">Professional</span>
-                </h1>
-                
-                <h2 class="text-2xl md:text-3xl font-mono text-slate-400">Andrei Zaharia</h2>
-
-                <p class="text-lg text-slate-400 max-w-xl leading-relaxed">
-                    I engineer production-ready, multi-cloud platforms that reduce operational overhead, optimize costs, and accelerate feature delivery. Specializing in Terraform, Kubernetes, and high-security governance for global enterprises.
-                </p>
-
-                <div class="flex flex-wrap gap-4 pt-4">
-                    <a href="#contact" class="px-8 py-3 bg-cyber-500 hover:bg-cyber-400 text-black font-bold rounded-sm transition-all shadow-[0_0_15px_rgba(14,165,233,0.3)] hover:shadow-[0_0_25px_rgba(14,165,233,0.5)] flex items-center gap-2">
-                        <i data-lucide="terminal" class="w-5 h-5"></i>
-                        INITIATE CONTACT
-                    </a>
-                    <a href="#projects" class="px-8 py-3 border border-slate-700 hover:border-cyber-500 text-slate-300 hover:text-white font-medium rounded-sm transition-all flex items-center gap-2 bg-cyber-900/50 backdrop-blur-sm">
-                        <i data-lucide="shield" class="w-5 h-5"></i>
-                        VIEW PROTOCOLS
-                    </a>
-                </div>
+        <div class="relative z-10 max-w-7xl">
+            <div class="mb-4 flex items-center gap-4 overflow-hidden">
+                <span class="block h-px w-12 bg-cyber"></span>
+                <span class="text-cyber font-mono text-sm tracking-widest reveal-text">SENIOR DEVOPS ENGINEER</span>
             </div>
 
-            <div class="order-1 md:order-2 flex justify-center md:justify-end relative reveal delay-200">
-                <div class="relative w-72 h-72 md:w-96 md:h-96">
-                    <div class="absolute inset-0 rounded-full border border-cyber-500/20 border-t-cyber-500 animate-spin-slow"></div>
-                    <div class="absolute inset-4 rounded-full border border-slate-700/40 border-b-slate-500 animate-spin-slow" style="animation-direction: reverse;"></div>
+            <h1 class="font-display font-bold text-[12vw] leading-[0.85] tracking-tighter text-white uppercase mix-blend-overlay opacity-50 select-none">
+                Cloud
+            </h1>
+            <h1 class="font-display font-bold text-[12vw] leading-[0.85] tracking-tighter text-white uppercase mb-8 reveal-text">
+                Architect
+            </h1>
+
+            <div class="flex flex-col md:flex-row gap-12 items-start max-w-4xl mt-12">
+                <p class="font-sans text-white/60 text-lg md:text-xl leading-relaxed max-w-xl reveal-text" style="transition-delay: 0.2s;">
+                    Engineering production-ready, multi-cloud platforms for the world's most demanding enterprises. Specializing in high-security governance and automated infrastructure.
+                </p>
+                
+                <div class="flex flex-col gap-4 reveal-text" style="transition-delay: 0.4s;">
+                    <div class="flex items-center gap-4 group hoverable cursor-pointer">
+                        <div class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-cyber group-hover:border-cyber transition-all">
+                            <i data-lucide="arrow-down" class="group-hover:text-black transition-colors"></i>
+                        </div>
+                        <span class="font-mono text-xs tracking-widest">SCROLL TO EXPLORE</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Abstract Decorative Elements -->
+        <div class="absolute right-0 bottom-0 w-1/3 h-1/3 bg-gradient-to-t from-cyber/10 to-transparent blur-3xl"></div>
+    </header>
+
+    <!-- Project Gallery (Horizontal Scroll) -->
+    <!-- We use a very tall container to allow for scroll "time" -->
+    <div id="projects-trigger" class="horizontal-section bg-zinc-900">
+        <div class="sticky-wrapper">
+            <div class="horizontal-track" id="track">
+                
+                <!-- Slide 1: Intro Card -->
+                <div class="slide bg-black border-r border-white/5">
+                    <div class="max-w-4xl w-full px-6">
+                        <span class="text-cyber font-mono text-xl mb-4 block">01 / SELECTED WORKS</span>
+                        <h2 class="font-display font-bold text-6xl md:text-8xl text-white mb-8">
+                            MISSION<br>CRITICAL<br><span class="text-outline">OPERATIONS</span>
+                        </h2>
+                        <div class="flex gap-4">
+                            <i data-lucide="arrow-right" class="w-12 h-12 text-white/20"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2: Project 1 -->
+                <div class="slide relative overflow-hidden group">
+                    <!-- Background Image -->
+                    <div class="absolute inset-0 bg-zinc-900">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover opacity-30 group-hover:scale-105 transition-transform duration-1000 ease-out" alt="FinOps">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
                     
-                    <div class="absolute inset-4 rounded-full overflow-hidden border-2 border-cyber-900 shadow-2xl bg-cyber-900 group">
-                        <!-- Placeholder Image -->
-                        <img src="resources/profile.jpeg" alt="Andrei Zaharia" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700">
-                        <div class="absolute inset-0 bg-cyber-500/10 mix-blend-overlay"></div>
+                    <div class="relative z-10 container mx-auto px-6 grid md:grid-cols-2 gap-12 items-end h-full pb-24">
+                        <div>
+                            <div class="flex items-center gap-2 mb-4">
+                                <span class="bg-cyber text-black text-xs font-bold px-2 py-1">CONFIDENTIAL</span>
+                                <span class="text-white/60 font-mono text-xs">LSEG (London Stock Exchange)</span>
+                            </div>
+                            <h3 class="font-display font-bold text-5xl md:text-7xl text-white mb-6">FinOps Governance</h3>
+                            <div class="h-px w-24 bg-cyber mb-6"></div>
+                            <ul class="space-y-2 font-mono text-sm text-white/80 mb-8">
+                                <li>+ Automated Cost Controls</li>
+                                <li>+ Multi-Cloud Aggregation</li>
+                                <li>+ $1.2M Annual Savings</li>
+                            </ul>
+                            <a href="#" class="inline-flex items-center gap-3 text-white hover:text-cyber transition-colors hoverable">
+                                <span class="tracking-widest text-sm font-bold">VIEW CASE STUDY</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 3: Project 2 -->
+                <div class="slide relative overflow-hidden group">
+                     <!-- Background Image -->
+                     <div class="absolute inset-0 bg-zinc-900">
+                        <img src="https://images.unsplash.com/photo-1558494949-ef526b0042a0?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover opacity-30 group-hover:scale-105 transition-transform duration-1000 ease-out" alt="Landing Zone">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+
+                    <div class="relative z-10 container mx-auto px-6 grid md:grid-cols-2 gap-12 items-end h-full pb-24">
+                        <div>
+                             <div class="flex items-center gap-2 mb-4">
+                                <span class="bg-white text-black text-xs font-bold px-2 py-1">ARCHITECT ROLE</span>
+                                <span class="text-white/60 font-mono text-xs">Vodafone</span>
+                            </div>
+                            <h3 class="font-display font-bold text-5xl md:text-7xl text-white mb-6">Zero-Trust Vending</h3>
+                            <div class="h-px w-24 bg-cyber mb-6"></div>
+                            <ul class="space-y-2 font-mono text-sm text-white/80 mb-8">
+                                <li>+ Automated Account Vending</li>
+                                <li>+ VPC Service Controls</li>
+                                <li>+ 45min Provisioning Time</li>
+                            </ul>
+                            <a href="#" class="inline-flex items-center gap-3 text-white hover:text-cyber transition-colors hoverable">
+                                <span class="tracking-widest text-sm font-bold">VIEW CASE STUDY</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 4: Project 3 -->
+                <div class="slide relative overflow-hidden group">
+                     <!-- Background Image -->
+                     <div class="absolute inset-0 bg-zinc-900">
+                        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1965&auto=format&fit=crop" class="w-full h-full object-cover opacity-30 group-hover:scale-105 transition-transform duration-1000 ease-out" alt="AI Engine">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+
+                    <div class="relative z-10 container mx-auto px-6 grid md:grid-cols-2 gap-12 items-end h-full pb-24">
+                        <div>
+                             <div class="flex items-center gap-2 mb-4">
+                                <span class="bg-cyber text-black text-xs font-bold px-2 py-1">STARTUP</span>
+                                <span class="text-white/60 font-mono text-xs">Stealth Fintech</span>
+                            </div>
+                            <h3 class="font-display font-bold text-5xl md:text-7xl text-white mb-6">AI Market Sentiment</h3>
+                            <div class="h-px w-24 bg-cyber mb-6"></div>
+                             <ul class="space-y-2 font-mono text-sm text-white/80 mb-8">
+                                <li>+ NLP Data Pipeline</li>
+                                <li>+ Kubernetes Autoscaling</li>
+                                <li>+ 99.99% Uptime</li>
+                            </ul>
+                            <a href="#" class="inline-flex items-center gap-3 text-white hover:text-cyber transition-colors hoverable">
+                                <span class="tracking-widest text-sm font-bold">VIEW CASE STUDY</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Expertise Section -->
+    <section id="expertise" class="bg-black py-32 border-t border-white/10">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-12 gap-12">
+                <div class="md:col-span-4">
+                    <span class="text-cyber font-mono text-sm block mb-4">02 / CAPABILITIES</span>
+                    <h2 class="font-display font-bold text-4xl md:text-5xl text-white mb-8">TECHNICAL<br>ARSENAL</h2>
+                    <p class="text-white/60 leading-relaxed max-w-sm">
+                        A comprehensive suite of enterprise-grade tools and methodologies designed for scale, security, and speed.
+                    </p>
+                </div>
+                
+                <div class="md:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
+                    <!-- Skill Group -->
+                    <div class="group hoverable">
+                        <div class="h-px w-full bg-white/20 mb-6 group-hover:bg-cyber transition-colors"></div>
+                        <h3 class="font-display font-bold text-2xl text-white mb-4">Cloud Architecture</h3>
+                        <ul class="space-y-3">
+                            <li class="flex justify-between text-sm text-white/70">
+                                <span>Google Cloud Platform</span>
+                                <span class="text-cyber font-mono">98%</span>
+                            </li>
+                            <li class="flex justify-between text-sm text-white/70">
+                                <span>AWS</span>
+                                <span class="text-cyber font-mono">95%</span>
+                            </li>
+                            <li class="flex justify-between text-sm text-white/70">
+                                <span>Microsoft Azure</span>
+                                <span class="text-cyber font-mono">90%</span>
+                            </li>
+                        </ul>
                     </div>
 
-                    <div class="absolute -bottom-4 -left-4 bg-cyber-950 border border-cyber-800 p-3 rounded-lg shadow-xl flex items-center gap-3">
-                        <div class="bg-cyber-500/20 p-2 rounded text-cyber-400">
-                            <i data-lucide="award" class="w-6 h-6"></i>
-                        </div>
-                        <div>
-                            <div class="text-xs text-slate-500 font-mono">CERTIFICATIONS</div>
-                            <div class="text-lg font-bold text-white">10+ PRO</div>
-                        </div>
+                    <!-- Skill Group -->
+                    <div class="group hoverable">
+                         <div class="h-px w-full bg-white/20 mb-6 group-hover:bg-cyber transition-colors"></div>
+                        <h3 class="font-display font-bold text-2xl text-white mb-4">Infrastructure as Code</h3>
+                         <ul class="space-y-3">
+                            <li class="flex justify-between text-sm text-white/70">
+                                <span>Terraform / HCL</span>
+                                <span class="text-cyber font-mono">99%</span>
+                            </li>
+                            <li class="flex justify-between text-sm text-white/70">
+                                <span>Kubernetes / Helm</span>
+                                <span class="text-cyber font-mono">98%</span>
+                            </li>
+                            <li class="flex justify-between text-sm text-white/70">
+                                <span>Ansible</span>
+                                <span class="text-cyber font-mono">92%</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                     <!-- Skill Group -->
+                     <div class="group hoverable">
+                         <div class="h-px w-full bg-white/20 mb-6 group-hover:bg-cyber transition-colors"></div>
+                        <h3 class="font-display font-bold text-2xl text-white mb-4">Security & Ops</h3>
+                         <ul class="space-y-3">
+                            <li class="flex justify-between text-sm text-white/70">
+                                <span>Zero Trust Arch</span>
+                                <span class="text-cyber font-mono">96%</span>
+                            </li>
+                            <li class="flex justify-between text-sm text-white/70">
+                                <span>FinOps / Cloudability</span>
+                                <span class="text-cyber font-mono">95%</span>
+                            </li>
+                            <li class="flex justify-between text-sm text-white/70">
+                                <span>GitHub Actions CI/CD</span>
+                                <span class="text-cyber font-mono">94%</span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce-slow text-slate-600">
-            <i data-lucide="chevron-down" class="w-6 h-6"></i>
-        </div>
     </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="py-20 bg-cyber-900 relative border-t border-cyber-800">
-        <div class="absolute inset-0 bg-[linear-gradient(rgba(2,6,23,0.7)_2px,transparent_2px),linear-gradient(90deg,rgba(2,6,23,0.7)_2px,transparent_2px)] bg-[size:40px_40px] opacity-20 pointer-events-none"></div>
-
+    <!-- Experience Timeline -->
+    <section class="bg-zinc-900 py-32 relative overflow-hidden">
         <div class="container mx-auto px-6 relative z-10">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4 reveal">
-                <div>
-                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
-                        <span class="text-cyber-500">./</span> Mission_Log
-                    </h2>
-                    <p className="text-slate-400 max-w-2xl text-lg">
-                        Selected operations demonstrating high-impact architectural solutions and enterprise-grade automation.
-                    </p>
-                </div>
-                <div class="hidden md:flex items-center gap-2 text-cyber-500 font-mono text-sm bg-cyber-950/50 px-3 py-1 rounded border border-cyber-500/30">
-                    <span class="w-2 h-2 rounded-full bg-cyber-500 animate-pulse"></span>
-                    CLEARANCE: UNCLASSIFIED
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Project 1 -->
-                <div class="group bg-cyber-950 border border-cyber-800 hover:border-cyber-500 rounded-lg p-6 flex flex-col transition-all duration-300 hover:shadow-[0_0_30px_rgba(14,165,233,0.15)] relative overflow-hidden reveal">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="p-3 bg-cyber-900 rounded-lg border border-cyber-800 group-hover:border-cyber-500/50 transition-colors">
-                            <i data-lucide="shield-check" class="w-6 h-6 text-cyber-500"></i>
+            <span class="text-cyber font-mono text-sm block mb-12 text-center">03 / EXPERIENCE LOG</span>
+            
+            <div class="max-w-4xl mx-auto space-y-24">
+                <!-- Job -->
+                <div class="relative pl-8 md:pl-0 border-l border-white/10 md:border-none">
+                    <div class="grid md:grid-cols-5 gap-8 items-center group hoverable">
+                        <div class="md:col-span-2 md:text-right">
+                            <div class="text-4xl font-display font-bold text-white mb-1">LSEG</div>
+                            <div class="text-cyber font-mono text-xs tracking-widest">CURRENT</div>
                         </div>
-                        <div class="flex items-center gap-1 text-xs font-bold text-amber-500 bg-amber-500/10 px-2 py-1 rounded border border-amber-500/20">
-                            <i data-lucide="lock" class="w-3 h-3"></i> CONFIDENTIAL
+                        <div class="hidden md:flex md:col-span-1 justify-center">
+                            <div class="w-3 h-3 rounded-full bg-cyber ring-4 ring-black"></div>
                         </div>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyber-400 transition-colors">Global FinOps Governance</h3>
-                    <p class="text-sm font-mono text-cyber-500 mb-4 uppercase tracking-wider">Role: Lead Architect</p>
-                    <p class="text-slate-400 text-sm mb-6 flex-grow leading-relaxed">
-                        Designed automated cost-control framework for a Fortune 500 financial data provider. Aggregates billing from AWS, Azure, and GCP.
-                    </p>
-                    <div class="mb-6 bg-cyber-900/50 p-3 rounded border-l-2 border-cyber-500">
-                        <div class="flex items-center gap-2 text-cyber-400 text-xs font-bold uppercase mb-1">
-                            <i data-lucide="trending-up" class="w-3 h-3"></i> Mission Impact
+                        <div class="md:col-span-2">
+                            <h4 class="text-xl font-bold text-white">Senior DevOps Engineer</h4>
+                            <p class="text-white/50 text-sm mt-2">Architecting global FinOps governance and automated compliance frameworks for financial data.</p>
                         </div>
-                        <div class="text-slate-200 text-sm font-medium">Reduced annual spend by 22% ($1.2M+)</div>
-                    </div>
-                    <div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-cyber-800">
-                        <span class="text-xs font-mono text-slate-500 bg-cyber-900/80 px-2 py-1 rounded border border-cyber-800/50">Python</span>
-                        <span class="text-xs font-mono text-slate-500 bg-cyber-900/80 px-2 py-1 rounded border border-cyber-800/50">Terraform</span>
-                        <span class="text-xs font-mono text-slate-500 bg-cyber-900/80 px-2 py-1 rounded border border-cyber-800/50">Cloudability</span>
                     </div>
                 </div>
 
-                <!-- Project 2 -->
-                <div class="group bg-cyber-950 border border-cyber-800 hover:border-cyber-500 rounded-lg p-6 flex flex-col transition-all duration-300 hover:shadow-[0_0_30px_rgba(14,165,233,0.15)] relative overflow-hidden reveal delay-100">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="p-3 bg-cyber-900 rounded-lg border border-cyber-800 group-hover:border-cyber-500/50 transition-colors">
-                            <i data-lucide="server" class="w-6 h-6 text-cyber-500"></i>
+                <!-- Job -->
+                <div class="relative pl-8 md:pl-0 border-l border-white/10 md:border-none">
+                    <div class="grid md:grid-cols-5 gap-8 items-center group hoverable">
+                        <div class="md:col-span-2 md:text-right">
+                            <div class="text-4xl font-display font-bold text-white mb-1">VOIS</div>
+                            <div class="text-white/40 font-mono text-xs tracking-widest">2023 - 2024</div>
                         </div>
-                        <a href="#" class="text-slate-500 hover:text-white transition-colors">
-                            <i data-lucide="external-link" class="w-5 h-5"></i>
-                        </a>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyber-400 transition-colors">Zero-Trust Landing Zone</h3>
-                    <p class="text-sm font-mono text-cyber-500 mb-4 uppercase tracking-wider">Role: Security Engineer</p>
-                    <p class="text-slate-400 text-sm mb-6 flex-grow leading-relaxed">
-                        Architected a secure, self-service vending machine for cloud account provisioning. Implemented strict IAM boundaries and VPC Service Controls.
-                    </p>
-                    <div class="mb-6 bg-cyber-900/50 p-3 rounded border-l-2 border-cyber-500">
-                        <div class="flex items-center gap-2 text-cyber-400 text-xs font-bold uppercase mb-1">
-                            <i data-lucide="trending-up" class="w-3 h-3"></i> Mission Impact
+                        <div class="hidden md:flex md:col-span-1 justify-center">
+                            <div class="w-3 h-3 rounded-full bg-white/20 ring-4 ring-black group-hover:bg-cyber transition-colors"></div>
                         </div>
-                        <div class="text-slate-200 text-sm font-medium">Provisioning time: 5 days → 45 mins</div>
-                    </div>
-                    <div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-cyber-800">
-                        <span class="text-xs font-mono text-slate-500 bg-cyber-900/80 px-2 py-1 rounded border border-cyber-800/50">GCP Org Policy</span>
-                        <span class="text-xs font-mono text-slate-500 bg-cyber-900/80 px-2 py-1 rounded border border-cyber-800/50">OPA</span>
-                        <span class="text-xs font-mono text-slate-500 bg-cyber-900/80 px-2 py-1 rounded border border-cyber-800/50">GitHub Actions</span>
+                        <div class="md:col-span-2">
+                            <h4 class="text-xl font-bold text-white">Cloud DevOps Lead</h4>
+                            <p class="text-white/50 text-sm mt-2">Led implementation of secure Landing Zones and mentored engineering cohorts.</p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Project 3 -->
-                <div class="group bg-cyber-950 border border-cyber-800 hover:border-cyber-500 rounded-lg p-6 flex flex-col transition-all duration-300 hover:shadow-[0_0_30px_rgba(14,165,233,0.15)] relative overflow-hidden reveal delay-200">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="p-3 bg-cyber-900 rounded-lg border border-cyber-800 group-hover:border-cyber-500/50 transition-colors">
-                            <i data-lucide="cpu" class="w-6 h-6 text-cyber-500"></i>
+                 <!-- Job -->
+                 <div class="relative pl-8 md:pl-0 border-l border-white/10 md:border-none">
+                    <div class="grid md:grid-cols-5 gap-8 items-center group hoverable">
+                        <div class="md:col-span-2 md:text-right">
+                            <div class="text-4xl font-display font-bold text-white mb-1">GOOGLE</div>
+                            <div class="text-white/40 font-mono text-xs tracking-widest">2021 - 2022</div>
                         </div>
-                        <a href="#" class="text-slate-500 hover:text-white transition-colors">
-                            <i data-lucide="external-link" class="w-5 h-5"></i>
-                        </a>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyber-400 transition-colors">AI Market Sentiment Engine</h3>
-                    <p class="text-sm font-mono text-cyber-500 mb-4 uppercase tracking-wider">Role: Senior Developer</p>
-                    <p class="text-slate-400 text-sm mb-6 flex-grow leading-relaxed">
-                        Built a scraping and data intelligence pipeline for a fintech startup. Ingests TBs of data for real-time NLP sentiment analysis.
-                    </p>
-                    <div class="mb-6 bg-cyber-900/50 p-3 rounded border-l-2 border-cyber-500">
-                        <div class="flex items-center gap-2 text-cyber-400 text-xs font-bold uppercase mb-1">
-                            <i data-lucide="trending-up" class="w-3 h-3"></i> Mission Impact
+                        <div class="hidden md:flex md:col-span-1 justify-center">
+                            <div class="w-3 h-3 rounded-full bg-white/20 ring-4 ring-black group-hover:bg-cyber transition-colors"></div>
                         </div>
-                        <div class="text-slate-200 text-sm font-medium">99.99% uptime during peak volatility</div>
-                    </div>
-                    <div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-cyber-800">
-                        <span class="text-xs font-mono text-slate-500 bg-cyber-900/80 px-2 py-1 rounded border border-cyber-800/50">AWS EKS</span>
-                        <span class="text-xs font-mono text-slate-500 bg-cyber-900/80 px-2 py-1 rounded border border-cyber-800/50">ArgoCD</span>
-                        <span class="text-xs font-mono text-slate-500 bg-cyber-900/80 px-2 py-1 rounded border border-cyber-800/50">NLP</span>
+                        <div class="md:col-span-2">
+                            <h4 class="text-xl font-bold text-white">Cloud Engineer</h4>
+                            <p class="text-white/50 text-sm mt-2">High-profile security forensics and infrastructure architecture for enterprise clients.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Experience Section -->
-    <section id="experience" class="py-20 bg-cyber-950 relative">
-        <div class="container mx-auto px-6">
-            <div class="flex items-center gap-4 mb-16 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold text-white">
-                    <span class="text-cyber-500">./</span> Experience_Log
-                </h2>
-                <div class="h-px bg-cyber-800 flex-grow max-w-xs"></div>
-            </div>
-
-            <div class="relative space-y-12">
-                <!-- Vertical Line -->
-                <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-cyber-800 transform md:-translate-x-1/2"></div>
-
-                <!-- Job 1 -->
-                <div class="relative flex flex-col md:flex-row gap-8 md:flex-row-reverse reveal">
-                    <div class="absolute left-4 md:left-1/2 w-4 h-4 bg-cyber-950 border-2 border-cyber-500 rounded-full transform -translate-x-[calc(50%+1px)] md:-translate-x-1/2 mt-6 z-10 shadow-[0_0_10px_rgba(14,165,233,0.5)]"></div>
-                    <div class="w-full md:w-1/2 pl-12 md:pl-0 md:px-12 group">
-                        <div class="bg-cyber-900/50 backdrop-blur-sm border border-cyber-800 p-6 rounded-lg relative overflow-hidden hover:border-cyber-500/50 transition-colors">
-                            <div class="absolute top-0 right-0 bg-cyber-500 text-black text-xs font-bold px-3 py-1 rounded-bl-lg">TOP SECRET</div>
-                            <div class="flex flex-col gap-2 mb-4">
-                                <div class="flex items-center gap-2 text-cyber-400 font-mono text-sm"><i data-lucide="calendar" class="w-4 h-4"></i> Jul 2024 - Present</div>
-                                <h3 class="text-xl font-bold text-white">Senior DevOps Engineer</h3>
-                                <div class="flex items-center gap-2 text-slate-400 font-medium"><i data-lucide="building-2" class="w-4 h-4"></i> LSEG (London Stock Exchange)</div>
-                            </div>
-                            <ul class="space-y-2 mb-6">
-                                <li class="flex items-start gap-2 text-slate-400 text-sm"><span class="text-cyber-500 mt-1.5">›</span> Architected enterprise-wide Cloudability governance.</li>
-                                <li class="flex items-start gap-2 text-slate-400 text-sm"><span class="text-cyber-500 mt-1.5">›</span> Automated 90% of manual maintenance tasks.</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="hidden md:block w-1/2"></div>
-                </div>
-
-                <!-- Job 2 -->
-                <div class="relative flex flex-col md:flex-row gap-8 reveal">
-                    <div class="absolute left-4 md:left-1/2 w-4 h-4 bg-cyber-950 border-2 border-cyber-500 rounded-full transform -translate-x-[calc(50%+1px)] md:-translate-x-1/2 mt-6 z-10"></div>
-                    <div class="w-full md:w-1/2 pl-12 md:pl-0 md:px-12 group">
-                        <div class="bg-cyber-900/50 backdrop-blur-sm border border-cyber-800 p-6 rounded-lg hover:border-cyber-500/50 transition-colors">
-                            <div class="flex flex-col gap-2 mb-4">
-                                <div class="flex items-center gap-2 text-cyber-400 font-mono text-sm"><i data-lucide="calendar" class="w-4 h-4"></i> Jun 2024 - May 2025</div>
-                                <h3 class="text-xl font-bold text-white">Senior Python Developer</h3>
-                                <div class="flex items-center gap-2 text-slate-400 font-medium"><i data-lucide="building-2" class="w-4 h-4"></i> Stealth Mode Contract</div>
-                            </div>
-                            <ul class="space-y-2 mb-6">
-                                <li class="flex items-start gap-2 text-slate-400 text-sm"><span class="text-cyber-500 mt-1.5">›</span> Designed autoscaling infrastructure using Terraform & ArgoCD.</li>
-                                <li class="flex items-start gap-2 text-slate-400 text-sm"><span class="text-cyber-500 mt-1.5">›</span> Implemented resilient scraping pipelines.</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="hidden md:block w-1/2"></div>
-                </div>
-
-                <!-- Job 3 -->
-                <div class="relative flex flex-col md:flex-row gap-8 md:flex-row-reverse reveal">
-                    <div class="absolute left-4 md:left-1/2 w-4 h-4 bg-cyber-950 border-2 border-cyber-500 rounded-full transform -translate-x-[calc(50%+1px)] md:-translate-x-1/2 mt-6 z-10"></div>
-                    <div class="w-full md:w-1/2 pl-12 md:pl-0 md:px-12 group">
-                        <div class="bg-cyber-900/50 backdrop-blur-sm border border-cyber-800 p-6 rounded-lg hover:border-cyber-500/50 transition-colors">
-                            <div class="flex flex-col gap-2 mb-4">
-                                <div class="flex items-center gap-2 text-cyber-400 font-mono text-sm"><i data-lucide="calendar" class="w-4 h-4"></i> Oct 2023 - Dec 2024</div>
-                                <h3 class="text-xl font-bold text-white">Cloud DevOps Lead</h3>
-                                <div class="flex items-center gap-2 text-slate-400 font-medium"><i data-lucide="building-2" class="w-4 h-4"></i> _VOIS (Vodafone)</div>
-                            </div>
-                            <ul class="space-y-2 mb-6">
-                                <li class="flex items-start gap-2 text-slate-400 text-sm"><span class="text-cyber-500 mt-1.5">›</span> Automated Landing Zone creation, reducing workload by 50%.</li>
-                                <li class="flex items-start gap-2 text-slate-400 text-sm"><span class="text-cyber-500 mt-1.5">›</span> Mentored 15 engineers for CKA certification.</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="hidden md:block w-1/2"></div>
-                </div>
-
-                 <!-- Job 4 -->
-                 <div class="relative flex flex-col md:flex-row gap-8 reveal">
-                    <div class="absolute left-4 md:left-1/2 w-4 h-4 bg-cyber-950 border-2 border-cyber-500 rounded-full transform -translate-x-[calc(50%+1px)] md:-translate-x-1/2 mt-6 z-10"></div>
-                    <div class="w-full md:w-1/2 pl-12 md:pl-0 md:px-12 group">
-                        <div class="bg-cyber-900/50 backdrop-blur-sm border border-cyber-800 p-6 rounded-lg hover:border-cyber-500/50 transition-colors">
-                            <div class="absolute top-0 right-0 bg-cyber-500 text-black text-xs font-bold px-3 py-1 rounded-bl-lg">TOP SECRET</div>
-                            <div class="flex flex-col gap-2 mb-4">
-                                <div class="flex items-center gap-2 text-cyber-400 font-mono text-sm"><i data-lucide="calendar" class="w-4 h-4"></i> Apr 2021 - Oct 2022</div>
-                                <h3 class="text-xl font-bold text-white">Cloud Engineer</h3>
-                                <div class="flex items-center gap-2 text-slate-400 font-medium"><i data-lucide="building-2" class="w-4 h-4"></i> Google</div>
-                            </div>
-                            <ul class="space-y-2 mb-6">
-                                <li class="flex items-start gap-2 text-slate-400 text-sm"><span class="text-cyber-500 mt-1.5">›</span> Architected secure environments for high-profile customers.</li>
-                                <li class="flex items-start gap-2 text-slate-400 text-sm"><span class="text-cyber-500 mt-1.5">›</span> Investigated and mitigated major hacking cases.</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="hidden md:block w-1/2"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="py-20 bg-cyber-900 relative overflow-hidden">
-        <div class="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyber-800 to-transparent"></div>
+    <!-- Testimonials / Proof -->
+    <section class="bg-black py-32 flex items-center justify-center relative">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.03),transparent_70%)]"></div>
         
-        <div class="container mx-auto px-6 relative z-10">
-            <h2 class="text-3xl md:text-4xl font-bold text-white mb-16 text-center reveal">
-                <span class="text-cyber-500">./</span> Debrief_Reports
-            </h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Testimonial 1 -->
-                <div class="bg-cyber-900/30 border border-cyber-800 p-8 rounded-lg relative hover:bg-cyber-900/50 transition-colors reveal">
-                    <i data-lucide="quote" class="absolute top-6 left-6 w-8 h-8 text-cyber-500/20"></i>
-                    <div class="flex gap-1 mb-4 text-amber-500">
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    </div>
-                    <p class="text-slate-300 italic mb-6 relative z-10 leading-relaxed">
-                        "Andrei is a machine. He automated our entire cloud compliance workflow in weeks. His focus on cost-optimization paid for his contract ten times over."
-                    </p>
-                    <div class="flex items-center gap-3 pt-6 border-t border-cyber-800/50">
-                        <div class="w-10 h-10 rounded-full bg-cyber-800 flex items-center justify-center text-cyber-500 font-bold">D</div>
-                        <div>
-                            <div class="text-white font-bold text-sm">Engineering Director</div>
-                            <div class="text-cyber-500 text-xs font-mono">LSEG</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Testimonial 2 -->
-                <div class="bg-cyber-900/30 border border-cyber-800 p-8 rounded-lg relative hover:bg-cyber-900/50 transition-colors reveal delay-100">
-                    <i data-lucide="quote" class="absolute top-6 left-6 w-8 h-8 text-cyber-500/20"></i>
-                    <div class="flex gap-1 mb-4 text-amber-500">
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    </div>
-                    <p class="text-slate-300 italic mb-6 relative z-10 leading-relaxed">
-                        "The most security-conscious DevOps engineer I've worked with. Andrei doesn't just build infrastructure; he builds fortresses."
-                    </p>
-                    <div class="flex items-center gap-3 pt-6 border-t border-cyber-800/50">
-                        <div class="w-10 h-10 rounded-full bg-cyber-800 flex items-center justify-center text-cyber-500 font-bold">H</div>
-                        <div>
-                            <div class="text-white font-bold text-sm">Head of SecOps</div>
-                            <div class="text-cyber-500 text-xs font-mono">Vodafone</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Testimonial 3 -->
-                <div class="bg-cyber-900/30 border border-cyber-800 p-8 rounded-lg relative hover:bg-cyber-900/50 transition-colors reveal delay-200">
-                    <i data-lucide="quote" class="absolute top-6 left-6 w-8 h-8 text-cyber-500/20"></i>
-                    <div class="flex gap-1 mb-4 text-amber-500">
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    </div>
-                    <p class="text-slate-300 italic mb-6 relative z-10 leading-relaxed">
-                        "Andrei's mastery of Kubernetes and GCP is unparalleled. He architected a solution that prevented recurrence of a critical incident."
-                    </p>
-                    <div class="flex items-center gap-3 pt-6 border-t border-cyber-800/50">
-                        <div class="w-10 h-10 rounded-full bg-cyber-800 flex items-center justify-center text-cyber-500 font-bold">P</div>
-                        <div>
-                            <div class="text-white font-bold text-sm">Cloud Product Lead</div>
-                            <div class="text-cyber-500 text-xs font-mono">Google</div>
-                        </div>
-                    </div>
+        <div class="container mx-auto px-6 text-center max-w-4xl relative z-10">
+            <i data-lucide="quote" class="w-12 h-12 text-cyber mx-auto mb-8 opacity-50"></i>
+            <h3 class="font-display font-bold text-3xl md:text-5xl text-white leading-tight mb-12 hoverable">
+                "Andrei doesn't just build infrastructure; he builds fortresses. His focus on automation paid for his contract ten times over."
+            </h3>
+            <div class="flex items-center justify-center gap-4">
+                <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center font-bold font-display">L</div>
+                <div class="text-left">
+                    <div class="text-white font-bold text-sm">Engineering Director</div>
+                    <div class="text-cyber text-xs font-mono">LSEG (London Stock Exchange)</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="py-20 bg-cyber-950 border-t border-cyber-800">
+    <!-- Footer / Contact -->
+    <footer id="contact" class="bg-zinc-900 pt-32 pb-12 border-t border-white/10">
         <div class="container mx-auto px-6">
-            <div class="text-center mb-16 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
-                    <span class="text-cyber-500">./</span> Tech_Stack_Matrix
-                </h2>
-                <p className="text-slate-400 max-w-xl mx-auto">
-                    Comprehensive proficiency in enterprise-grade technologies.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <!-- Category 1 -->
-                <div class="bg-cyber-900/20 rounded-xl p-6 border border-cyber-800/50 hover:border-cyber-500/30 transition-colors reveal">
-                    <div class="flex items-center gap-3 mb-6 pb-4 border-b border-cyber-800">
-                        <div class="p-2 bg-cyber-500/10 rounded text-cyber-500"><i data-lucide="cloud" class="w-5 h-5"></i></div>
-                        <h3 class="text-xl font-bold text-white">Cloud Architecture</h3>
-                    </div>
-                    <div class="space-y-5">
-                        <div>
-                            <div class="flex justify-between items-end mb-1">
-                                <span class="text-slate-300 font-medium">Google Cloud Platform</span>
-                                <span class="text-xs font-mono text-cyber-500">98%</span>
-                            </div>
-                            <div class="h-1.5 w-full bg-cyber-950 rounded-full overflow-hidden">
-                                <div class="h-full bg-gradient-to-r from-cyber-800 to-cyber-500 rounded-full" style="width: 98%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between items-end mb-1">
-                                <span class="text-slate-300 font-medium">AWS</span>
-                                <span class="text-xs font-mono text-cyber-500">95%</span>
-                            </div>
-                            <div class="h-1.5 w-full bg-cyber-950 rounded-full overflow-hidden">
-                                <div class="h-full bg-gradient-to-r from-cyber-800 to-cyber-500 rounded-full" style="width: 95%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between items-end mb-1">
-                                <span class="text-slate-300 font-medium">Azure</span>
-                                <span class="text-xs font-mono text-cyber-500">90%</span>
-                            </div>
-                            <div class="h-1.5 w-full bg-cyber-950 rounded-full overflow-hidden">
-                                <div class="h-full bg-gradient-to-r from-cyber-800 to-cyber-500 rounded-full" style="width: 90%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Category 2 -->
-                <div class="bg-cyber-900/20 rounded-xl p-6 border border-cyber-800/50 hover:border-cyber-500/30 transition-colors reveal delay-100">
-                    <div class="flex items-center gap-3 mb-6 pb-4 border-b border-cyber-800">
-                        <div class="p-2 bg-cyber-500/10 rounded text-cyber-500"><i data-lucide="server" class="w-5 h-5"></i></div>
-                        <h3 class="text-xl font-bold text-white">DevOps & IaC</h3>
-                    </div>
-                    <div class="space-y-5">
-                        <div>
-                            <div class="flex justify-between items-end mb-1">
-                                <span class="text-slate-300 font-medium">Terraform / IaC</span>
-                                <span class="text-xs font-mono text-cyber-500">99%</span>
-                            </div>
-                            <div class="h-1.5 w-full bg-cyber-950 rounded-full overflow-hidden">
-                                <div class="h-full bg-gradient-to-r from-cyber-800 to-cyber-500 rounded-full" style="width: 99%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between items-end mb-1">
-                                <span class="text-slate-300 font-medium">Kubernetes / GKE</span>
-                                <span class="text-xs font-mono text-cyber-500">98%</span>
-                            </div>
-                            <div class="h-1.5 w-full bg-cyber-950 rounded-full overflow-hidden">
-                                <div class="h-full bg-gradient-to-r from-cyber-800 to-cyber-500 rounded-full" style="width: 98%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between items-end mb-1">
-                                <span class="text-slate-300 font-medium">ArgoCD / GitOps</span>
-                                <span class="text-xs font-mono text-cyber-500">92%</span>
-                            </div>
-                            <div class="h-1.5 w-full bg-cyber-950 rounded-full overflow-hidden">
-                                <div class="h-full bg-gradient-to-r from-cyber-800 to-cyber-500 rounded-full" style="width: 92%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tags -->
-            <div class="mt-16 flex flex-wrap justify-center gap-3 opacity-70 hover:opacity-100 transition-opacity reveal">
-                <span class="px-3 py-1 bg-cyber-950 border border-cyber-800 rounded-full text-xs text-slate-500 font-mono">#FinOps</span>
-                <span class="px-3 py-1 bg-cyber-950 border border-cyber-800 rounded-full text-xs text-slate-500 font-mono">#SRE</span>
-                <span class="px-3 py-1 bg-cyber-950 border border-cyber-800 rounded-full text-xs text-slate-500 font-mono">#ZeroTrust</span>
-                <span class="px-3 py-1 bg-cyber-950 border border-cyber-800 rounded-full text-xs text-slate-500 font-mono">#GDPR</span>
-                <span class="px-3 py-1 bg-cyber-950 border border-cyber-800 rounded-full text-xs text-slate-500 font-mono">#ISO27001</span>
-                <span class="px-3 py-1 bg-cyber-950 border border-cyber-800 rounded-full text-xs text-slate-500 font-mono">#Prometheus</span>
-                <span class="px-3 py-1 bg-cyber-950 border border-cyber-800 rounded-full text-xs text-slate-500 font-mono">#Grafana</span>
-                <span class="px-3 py-1 bg-cyber-950 border border-cyber-800 rounded-full text-xs text-slate-500 font-mono">#Ansible</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Certifications -->
-    <section id="certifications" class="py-20 bg-cyber-900 border-t border-cyber-800">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6 reveal">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-12 mb-24">
                 <div>
-                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
-                        <span class="text-cyber-500">./</span> Authenticated_Credentials
+                    <h2 class="font-display font-bold text-6xl md:text-8xl text-white mb-8 hoverable">
+                        LET'S TALK<br><span class="text-outline">INFRASTRUCTURE</span>
                     </h2>
-                    <p class="text-slate-400 max-w-2xl">Verified proficiency in multi-cloud architecture and secure infrastructure operations.</p>
-                </div>
-                <div class="flex items-center gap-2 text-cyber-500 font-mono border border-cyber-500/30 px-4 py-2 rounded bg-cyber-500/5">
-                    <i data-lucide="check-circle-2" class="w-5 h-5"></i>
-                    <span>TOTAL CERTS: 11</span>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Cert 1 -->
-                <div class="group bg-cyber-950 border border-cyber-800 p-6 rounded-lg hover:border-cyber-500 transition-all duration-300 flex items-start gap-4 reveal">
-                    <div class="p-3 bg-cyber-800/50 rounded-lg group-hover:bg-cyber-500/20 transition-colors">
-                        <i data-lucide="award" class="w-6 h-6 text-slate-300 group-hover:text-cyber-500"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-white leading-tight mb-1 group-hover:text-cyber-400">Kubestronaut</h3>
-                        <p class="text-sm text-slate-500 font-mono">ISSUER: CNCF</p>
-                    </div>
-                </div>
-                <!-- Cert 2 -->
-                <div class="group bg-cyber-950 border border-cyber-800 p-6 rounded-lg hover:border-cyber-500 transition-all duration-300 flex items-start gap-4 reveal">
-                    <div class="p-3 bg-cyber-800/50 rounded-lg group-hover:bg-cyber-500/20 transition-colors">
-                        <i data-lucide="award" class="w-6 h-6 text-slate-300 group-hover:text-cyber-500"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-white leading-tight mb-1 group-hover:text-cyber-400">Google Cloud Architect</h3>
-                        <p class="text-sm text-slate-500 font-mono">ISSUER: Google</p>
-                    </div>
-                </div>
-                 <!-- Cert 3 -->
-                 <div class="group bg-cyber-950 border border-cyber-800 p-6 rounded-lg hover:border-cyber-500 transition-all duration-300 flex items-start gap-4 reveal">
-                    <div class="p-3 bg-cyber-800/50 rounded-lg group-hover:bg-cyber-500/20 transition-colors">
-                        <i data-lucide="award" class="w-6 h-6 text-slate-300 group-hover:text-cyber-500"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-white leading-tight mb-1 group-hover:text-cyber-400">Azure Admin (AZ-104)</h3>
-                        <p class="text-sm text-slate-500 font-mono">ISSUER: Microsoft</p>
-                    </div>
-                </div>
-                 <!-- Cert 4 -->
-                 <div class="group bg-cyber-950 border border-cyber-800 p-6 rounded-lg hover:border-cyber-500 transition-all duration-300 flex items-start gap-4 reveal">
-                    <div class="p-3 bg-cyber-800/50 rounded-lg group-hover:bg-cyber-500/20 transition-colors">
-                        <i data-lucide="award" class="w-6 h-6 text-slate-300 group-hover:text-cyber-500"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-white leading-tight mb-1 group-hover:text-cyber-400">Pro Cloud DevOps</h3>
-                        <p class="text-sm text-slate-500 font-mono">ISSUER: Google</p>
-                    </div>
-                </div>
-                 <!-- Cert 5 -->
-                 <div class="group bg-cyber-950 border border-cyber-800 p-6 rounded-lg hover:border-cyber-500 transition-all duration-300 flex items-start gap-4 reveal">
-                    <div class="p-3 bg-cyber-800/50 rounded-lg group-hover:bg-cyber-500/20 transition-colors">
-                        <i data-lucide="award" class="w-6 h-6 text-slate-300 group-hover:text-cyber-500"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-white leading-tight mb-1 group-hover:text-cyber-400">Terraform Associate</h3>
-                        <p class="text-sm text-slate-500 font-mono">ISSUER: HashiCorp</p>
-                    </div>
-                </div>
-                 <!-- Cert 6 -->
-                 <div class="group bg-cyber-950 border border-cyber-800 p-6 rounded-lg hover:border-cyber-500 transition-all duration-300 flex items-start gap-4 reveal">
-                    <div class="p-3 bg-cyber-800/50 rounded-lg group-hover:bg-cyber-500/20 transition-colors">
-                        <i data-lucide="award" class="w-6 h-6 text-slate-300 group-hover:text-cyber-500"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-white leading-tight mb-1 group-hover:text-cyber-400">Pro Cloud Security</h3>
-                        <p class="text-sm text-slate-500 font-mono">ISSUER: Google</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Footer -->
-    <footer id="contact" class="bg-cyber-900 border-t border-cyber-800 pt-20 pb-10">
-        <div class="container mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-12 mb-16">
-                <div class="reveal">
-                    <h2 class="text-3xl font-bold text-white mb-6">Ready to Secure Your Infrastructure?</h2>
-                    <p class="text-slate-400 mb-8 max-w-md">
-                        Available for high-stakes contracts, enterprise architecture consulting, and government-grade security implementations.
-                    </p>
-                    <a href="mailto:andrei.on.cloud@gmail.com" class="inline-flex items-center gap-2 px-6 py-3 bg-cyber-500 hover:bg-cyber-400 text-black font-bold rounded-sm transition-colors">
-                        <i data-lucide="mail" class="w-5 h-5"></i>
-                        TRANSMIT MESSAGE
+                    <a href="mailto:andrei.on.cloud@gmail.com" class="inline-block px-8 py-4 bg-cyber text-black font-bold tracking-widest text-sm hover:bg-white transition-colors hoverable">
+                        INITIATE CONTRACT
                     </a>
                 </div>
-
-                <div class="grid gap-6 reveal delay-100">
-                    <div class="flex items-start gap-4 p-4 border border-cyber-800 rounded bg-cyber-950/50">
-                        <i data-lucide="map-pin" class="w-6 h-6 text-cyber-500 shrink-0"></i>
-                        <div>
-                            <div class="text-sm text-slate-500 font-mono mb-1">BASE OF OPERATIONS</div>
-                            <div class="text-white">Romania (EU) / Remote</div>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4 p-4 border border-cyber-800 rounded bg-cyber-950/50">
-                        <i data-lucide="smartphone" class="w-6 h-6 text-cyber-500 shrink-0"></i>
-                        <div>
-                            <div class="text-sm text-slate-500 font-mono mb-1">SECURE LINE</div>
-                            <div class="text-white">+40 736 091 582</div>
-                        </div>
-                    </div>
-                    <div class="flex gap-4 mt-4">
-                        <a href="https://github.com/andreizaharia" target="_blank" class="p-3 bg-cyber-800 rounded hover:bg-cyber-700 hover:text-cyber-400 transition-colors text-slate-300">
-                            <i data-lucide="github" class="w-6 h-6"></i>
-                        </a>
-                        <a href="https://linkedin.com/in/andreizaharia" target="_blank" class="p-3 bg-cyber-800 rounded hover:bg-cyber-700 hover:text-cyber-400 transition-colors text-slate-300">
-                            <i data-lucide="linkedin" class="w-6 h-6"></i>
-                        </a>
-                    </div>
+                
+                <div class="flex flex-col gap-6 text-right">
+                    <a href="#" class="text-white hover:text-cyber transition-colors font-mono text-sm hoverable">LINKEDIN</a>
+                    <a href="#" class="text-white hover:text-cyber transition-colors font-mono text-sm hoverable">GITHUB</a>
+                    <a href="#" class="text-white hover:text-cyber transition-colors font-mono text-sm hoverable">DOWNLOAD CV</a>
                 </div>
             </div>
 
-            <div class="border-t border-cyber-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-600 font-mono reveal">
-                <div>&copy; <span id="year"></span> ANDREI ZAHARIA. ALL RIGHTS RESERVED.</div>
-                <div class="mt-2 md:mt-0 flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                    SYSTEM STATUS: OPERATIONAL
-                </div>
+            <div class="flex justify-between items-center pt-8 border-t border-white/10 text-white/30 text-xs font-mono">
+                <span>© 2025 ANDREI ZAHARIA</span>
+                <span>ROMANIA (EU) / REMOTE</span>
             </div>
         </div>
     </footer>
 
-    <!-- Logic -->
     <script>
-        // Initialize Icons
+        // Init Icons
         lucide.createIcons();
 
-        // Dynamic Year
-        document.getElementById('year').textContent = new Date().getFullYear();
+        // Cursor Logic
+        const cursor = document.getElementById('cursor');
+        const hoverables = document.querySelectorAll('.hoverable');
 
-        // Mobile Menu Toggle
-        const menuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
-
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            mobileMenu.classList.toggle('flex');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
         });
 
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                mobileMenu.classList.remove('flex');
-            });
+        hoverables.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
         });
 
-        // Navbar Scroll Effect
-        const navbar = document.getElementById('navbar');
+        // Horizontal Scroll Logic
+        const track = document.getElementById('track');
+        const container = document.querySelector('.horizontal-section');
+        
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('bg-cyber-950/90', 'backdrop-blur-md', 'border-b', 'border-cyber-800', 'py-4');
-                navbar.classList.remove('py-6');
-            } else {
-                navbar.classList.remove('bg-cyber-950/90', 'backdrop-blur-md', 'border-b', 'border-cyber-800', 'py-4');
-                navbar.classList.add('py-6');
+            const containerTop = container.offsetTop;
+            const containerHeight = container.offsetHeight;
+            const windowHeight = window.innerHeight;
+            const scrollY = window.scrollY;
+
+            // Start scrolling when top of container hits top of viewport
+            if (scrollY >= containerTop && scrollY <= (containerTop + containerHeight - windowHeight)) {
+                // Calculate percentage scrolled within the container
+                const scrolled = scrollY - containerTop;
+                const maxScroll = containerHeight - windowHeight;
+                const progress = scrolled / maxScroll;
+                
+                // Translate the track horizontally
+                // We have 4 slides, so we need to move (4-1) = 300vw
+                const moveAmount = progress * (window.innerWidth * 3);
+                track.style.transform = `translateX(-${moveAmount}px)`;
             }
         });
 
-        // Scroll Reveal Animation
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
+        // Text Reveal Observer
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
-        document.querySelectorAll('.reveal').forEach(el => {
+        document.querySelectorAll('.reveal-text, .reveal-image').forEach(el => {
             observer.observe(el);
         });
     </script>
