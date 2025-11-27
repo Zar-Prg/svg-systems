@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO & Identity -->
-    <title>SVG // SYSTEMS | Cloud Architecture</title>
+    <title>AZ // SYSTEMS | Cloud Architecture</title>
     <meta name="description" content="Andrei Zaharia - Senior Cloud Architect. Specializing in high-security infrastructure, automated governance, and multi-cloud strategy for enterprise.">
     
     <!-- Fonts: Syne (Futuristic/Bold) & Inter (Clean) & JetBrains Mono (Code) -->
@@ -161,8 +161,9 @@
             }
             .slide {
                 width: 100%;
-                height: 100vh; /* Full screen per slide */
-                min-height: 700px; /* Ensure space for content */
+                /* Changed to auto height with min-screen to allow content to grow without clipping */
+                height: auto; 
+                min-height: 100vh; 
             }
         }
         
@@ -182,7 +183,7 @@
     <nav class="fixed top-0 left-0 right-0 z-50 px-6 py-4 md:px-10 md:py-8 flex justify-between items-start bg-black/90 backdrop-blur-md border-b border-white/5 text-white">
         <div>
             <a href="#" class="font-display font-bold text-xl md:text-2xl tracking-tighter hoverable block leading-none">
-                SVG // SYSTEMS<span class="text-savage">.</span>
+                AZ // SYSTEMS<span class="text-savage">.</span>
             </a>
             <span class="font-mono text-[8px] md:text-[10px] tracking-widest opacity-60 block mt-1">ANDREI ZAHARIA // ARCHITECT</span>
         </div>
@@ -256,7 +257,7 @@
                 <!-- Slide 1: Intro Card (Updated Typography) -->
                 <div class="slide bg-black border-r border-white/5 items-center justify-center relative">
                     <div class="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none"></div>
-                    <div class="max-w-4xl w-full px-6 text-center md:text-left relative z-10 pt-20 md:pt-0 flex flex-col items-center md:items-start">
+                    <div class="max-w-4xl w-full px-6 text-center md:text-left relative z-10 pt-32 md:pt-0 flex flex-col items-center md:items-start">
                         <span class="text-savage font-mono text-xl mb-4 block">01 // CASE STUDIES</span>
                         <!-- Updated to fluid text-[10vw] for mobile safety on long words like COMPETENCE -->
                         <h2 class="font-display font-bold text-[10vw] md:text-8xl text-white mb-8 leading-[0.9] md:leading-[0.9] max-w-full break-words">
@@ -279,14 +280,16 @@
                     <div class="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1504384308090-c54be3855833?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"></div>
                     <div class="absolute inset-0 bg-gradient-to-t from-black via-black/90 to-black/20"></div>
                     
-                    <div class="relative z-10 w-full h-full p-6 md:p-20 flex flex-col justify-end pb-20 md:pb-20">
+                    <!-- Added pt-32 for mobile safety and min-h-screen -->
+                    <div class="relative z-10 w-full min-h-screen md:h-full p-6 pt-32 md:p-20 flex flex-col justify-end pb-20 md:pb-20">
                         <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-end">
                             <div>
                                 <div class="flex items-center gap-3 mb-6">
                                     <span class="bg-savage text-black text-[10px] md:text-xs font-bold px-2 py-1 font-mono">REGULATORY TECH</span>
                                     <span class="text-white/60 font-mono text-[10px] md:text-xs tracking-widest">REGNOLOGY</span>
                                 </div>
-                                <h3 class="font-display font-bold text-4xl md:text-6xl text-white mb-6 leading-none">THE LANDING<br> ZONE</h3>
+                                <!-- Changed leading-none to leading-tight for better mobile rendering -->
+                                <h3 class="font-display font-bold text-4xl md:text-6xl text-white mb-6 leading-tight md:leading-none">THE LANDING<br> ZONE</h3>
                                 
                                 <div class="space-y-6 max-w-md">
                                     <div>
@@ -327,14 +330,14 @@
                     <div class="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"></div>
                     <div class="absolute inset-0 bg-gradient-to-t from-black via-black/90 to-black/20"></div>
                     
-                    <div class="relative z-10 w-full h-full p-6 md:p-20 flex flex-col justify-end pb-20 md:pb-20">
+                    <div class="relative z-10 w-full min-h-screen md:h-full p-6 pt-32 md:p-20 flex flex-col justify-end pb-20 md:pb-20">
                         <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-end">
                             <div>
                                 <div class="flex items-center gap-3 mb-6">
                                     <span class="bg-white text-black text-[10px] md:text-xs font-bold px-2 py-1 font-mono">FINTECH</span>
                                     <span class="text-white/60 font-mono text-[10px] md:text-xs tracking-widest">LSEG</span>
                                 </div>
-                                <h3 class="font-display font-bold text-4xl md:text-6xl text-white mb-6 leading-none">GLOBAL FINOPS<br>GOVERNANCE</h3>
+                                <h3 class="font-display font-bold text-4xl md:text-6xl text-white mb-6 leading-tight md:leading-none">GLOBAL FINOPS<br>GOVERNANCE</h3>
                                 
                                 <div class="space-y-6 max-w-md">
                                     <div>
@@ -375,14 +378,14 @@
                     <div class="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1520869562399-e772f042f422?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"></div>
                     <div class="absolute inset-0 bg-gradient-to-t from-black via-black/90 to-black/20"></div>
                     
-                    <div class="relative z-10 w-full h-full p-6 md:p-20 flex flex-col justify-end pb-20 md:pb-20">
+                    <div class="relative z-10 w-full min-h-screen md:h-full p-6 pt-32 md:p-20 flex flex-col justify-end pb-20 md:pb-20">
                         <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-end">
                             <div>
                                 <div class="flex items-center gap-3 mb-6">
                                     <span class="bg-savage text-black text-[10px] md:text-xs font-bold px-2 py-1 font-mono">TELECOM</span>
                                     <span class="text-white/60 font-mono text-[10px] md:text-xs tracking-widest">_VOIS (VODAFONE)</span>
                                 </div>
-                                <h3 class="font-display font-bold text-4xl md:text-6xl text-white mb-6 leading-none">CROSS-CLOUD<br>IPAM NEXUS</h3>
+                                <h3 class="font-display font-bold text-4xl md:text-6xl text-white mb-6 leading-tight md:leading-none">CROSS-CLOUD<br>IPAM NEXUS</h3>
                                 
                                 <div class="space-y-6 max-w-md">
                                     <div>
@@ -423,14 +426,14 @@
                     <div class="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1965&auto=format&fit=crop')] bg-cover bg-center"></div>
                     <div class="absolute inset-0 bg-gradient-to-t from-black via-black/90 to-black/20"></div>
                     
-                    <div class="relative z-10 w-full h-full p-6 md:p-20 flex flex-col justify-end pb-20 md:pb-20">
+                    <div class="relative z-10 w-full min-h-screen md:h-full p-6 pt-32 md:p-20 flex flex-col justify-end pb-20 md:pb-20">
                         <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-end">
                             <div>
                                 <div class="flex items-center gap-3 mb-6">
                                     <span class="bg-savage text-black text-[10px] md:text-xs font-bold px-2 py-1 font-mono">STEALTH AI</span>
                                     <span class="text-white/60 font-mono text-[10px] md:text-xs tracking-widest">DATA ENGINEERING</span>
                                 </div>
-                                <h3 class="font-display font-bold text-4xl md:text-6xl text-white mb-6 leading-none">SENTIMENT<br>GRID ENGINE</h3>
+                                <h3 class="font-display font-bold text-4xl md:text-6xl text-white mb-6 leading-tight md:leading-none">SENTIMENT<br>GRID ENGINE</h3>
                                 
                                 <div class="space-y-6 max-w-md">
                                     <div>
@@ -734,7 +737,7 @@
                 </div>
             </div>
             <div class="mt-20 pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-white/20 font-mono text-[10px]">
-                <div>© 2025 SVG // SYSTEMS. ALL RIGHTS RESERVED.</div>
+                <div>© 2025 AZ // SYSTEMS. ALL RIGHTS RESERVED.</div>
                 <div class="mt-2 md:mt-0">SYSTEM STATUS: ONLINE</div>
             </div>
         </div>
