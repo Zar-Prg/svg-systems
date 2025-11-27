@@ -1,15 +1,3 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-
-const rootElement = document.getElementById('root');
-if (!rootElement) {
-  throw new Error("Could not find root element to mount to");
-}
-
-const root = ReactDOM.createRoot(rootElement);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+// This application has been converted to a static HTML file (index.html).
+// You do not need to use React or this file.
+// Simply open index.html in your browser or upload it to your host.
