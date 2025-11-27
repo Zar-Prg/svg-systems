@@ -253,17 +253,18 @@
         <div class="sticky-wrapper">
             <div class="horizontal-track" id="track">
                 
-                <!-- Slide 1: Intro Card -->
+                <!-- Slide 1: Intro Card (Updated Typography) -->
                 <div class="slide bg-black border-r border-white/5 items-center justify-center relative">
                     <div class="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none"></div>
-                    <div class="max-w-4xl w-full px-6 text-center md:text-left relative z-10 pt-20 md:pt-0">
+                    <div class="max-w-4xl w-full px-6 text-center md:text-left relative z-10 pt-20 md:pt-0 flex flex-col items-center md:items-start">
                         <span class="text-savage font-mono text-xl mb-4 block">01 // CASE STUDIES</span>
-                        <h2 class="font-display font-bold text-5xl md:text-8xl text-white mb-8">
+                        <!-- Updated to fluid text-[10vw] for mobile safety on long words like COMPETENCE -->
+                        <h2 class="font-display font-bold text-[10vw] md:text-8xl text-white mb-8 leading-[0.9] md:leading-[0.9] max-w-full break-words">
                             PROOF OF<br><span class="text-outline">COMPETENCE</span>
                         </h2>
-                        <div class="flex flex-col md:flex-row gap-8 text-white/50 font-mono text-sm max-w-2xl">
+                        <div class="flex flex-col md:flex-row gap-8 text-white/50 font-mono text-sm max-w-2xl text-center md:text-left">
                             <p>Strategic interventions for Fortune 500 clients. These projects demonstrate ability to operate autonomously and deliver critical infrastructure.</p>
-                            <div class="flex items-center gap-2 text-white hoverable">
+                            <div class="flex items-center justify-center md:justify-start gap-2 text-white hoverable">
                                 <span class="hidden md:inline">SCROLL TO DECLASSIFY</span>
                                 <span class="md:hidden">SCROLL DOWN</span>
                                 <i data-lucide="arrow-right" class="hidden md:inline"></i>
@@ -475,14 +476,17 @@
         <div class="absolute right-0 top-0 w-1/3 h-full bg-gradient-to-l from-zinc-900 to-transparent opacity-50 pointer-events-none"></div>
 
         <div class="container mx-auto px-6 relative z-10">
-            <div class="flex flex-col md:flex-row items-end justify-between mb-16">
+            <!-- Updated Header Alignment: Center on Mobile, End on Desktop -->
+            <div class="flex flex-col md:flex-row items-center md:items-end justify-between mb-16 text-center md:text-left">
                 <div>
                      <span class="text-savage font-mono text-sm block mb-4">02 // CREDENTIALS VAULT</span>
-                     <h2 class="font-display font-bold text-5xl md:text-7xl text-white">
+                     <!-- Updated to fluid text-[9vw] (approx 8-9% width per char) for mobile safety on long words like CERTIFICATIONS -->
+                     <h2 class="font-display font-bold text-[9vw] md:text-7xl text-white leading-[0.9] max-w-full break-words">
                         ELITE<br>CERTIFICATIONS
                      </h2>
                 </div>
-                <div class="text-right mt-8 md:mt-0">
+                <!-- Center on Mobile -->
+                <div class="text-center md:text-right mt-8 md:mt-0">
                     <div class="text-6xl font-display font-bold text-white/20">90+</div>
                     <div class="text-xs font-mono text-white/50 tracking-widest uppercase">Total Certifications Earned</div>
                 </div>
@@ -589,322 +593,214 @@
                 </div>
                  <!-- Card -->
                  <div class="bg-black border border-white/10 p-6 rounded hover:border-savage/50 transition-colors">
-                    <i data-lucide="box" class="text-white mb-4"></i>
-                    <h4 class="font-bold text-white mb-2">Kubernetes</h4>
-                    <p class="text-xs text-white/50 font-mono">GKE, EKS, Helm, Istio, Autoscaling</p>
-                </div>
-                 <!-- Card -->
-                 <div class="bg-black border border-white/10 p-6 rounded hover:border-savage/50 transition-colors">
                     <i data-lucide="code-2" class="text-white mb-4"></i>
-                    <h4 class="font-bold text-white mb-2">Python & Data</h4>
-                    <p class="text-xs text-white/50 font-mono">Automation, ETL, Pandas, Scraping, API</p>
+                    <h4 class="font-bold text-white mb-2">Automation</h4>
+                    <p class="text-xs text-white/50 font-mono">Python, Terraform, Ansible, Go</p>
                 </div>
                  <!-- Card -->
                  <div class="bg-black border border-white/10 p-6 rounded hover:border-savage/50 transition-colors">
-                    <i data-lucide="git-merge" class="text-white mb-4"></i>
-                    <h4 class="font-bold text-white mb-2">CI/CD</h4>
-                    <p class="text-xs text-white/50 font-mono">GitLab CI, GitHub Actions, ArgoCD</p>
+                    <i data-lucide="container" class="text-white mb-4"></i>
+                    <h4 class="font-bold text-white mb-2">Orchestration</h4>
+                    <p class="text-xs text-white/50 font-mono">Kubernetes (CKA), Helm, Docker, ArgoCD</p>
+                </div>
+                 <!-- Card -->
+                 <div class="bg-black border border-white/10 p-6 rounded hover:border-savage/50 transition-colors">
+                    <i data-lucide="database" class="text-white mb-4"></i>
+                    <h4 class="font-bold text-white mb-2">Data Eng</h4>
+                    <p class="text-xs text-white/50 font-mono">BigQuery, ETL Pipelines, SQL, GitLab CI</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CV Replacement Section -->
-    <section id="experience" class="bg-black py-32 border-t border-white/10">
+    <!-- Experience Log -->
+    <section id="experience" class="bg-black py-20 relative">
         <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-24">
-                <div>
-                    <span class="text-savage font-mono text-sm block mb-4">04 // EXPERIENCE LOG</span>
-                    <h2 class="font-display font-bold text-5xl md:text-7xl text-white">FULL CAREER<br>HISTORY</h2>
-                </div>
-                <div class="mt-8 md:mt-0">
-                    <a href="#" class="px-6 py-3 border border-white/20 rounded hover:bg-white hover:text-black transition-all font-mono text-xs tracking-widest hoverable flex items-center gap-2">
-                        <i data-lucide="download" class="w-4 h-4"></i> DOWNLOAD PDF VERSION
-                    </a>
-                </div>
-            </div>
-            
-            <div class="relative border-l border-white/10 ml-4 md:ml-12 space-y-20">
+            <span class="text-savage font-mono text-sm block mb-16">04 // EXPERIENCE LOG</span>
+
+            <div class="border-l border-white/10 ml-3 space-y-16">
                 
-                <!-- Role 1: LSEG -->
-                <div class="relative pl-12 md:pl-20 group">
-                    <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-savage rounded-full"></div>
-                    <div class="grid md:grid-cols-12 gap-8">
-                        <div class="md:col-span-4">
-                            <h3 class="font-display font-bold text-3xl text-white">LSEG</h3>
-                            <div class="text-white/50 font-mono text-xs mt-1 tracking-widest">LONDON STOCK EXCHANGE GROUP</div>
-                            <div class="inline-block mt-4 px-3 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-savage">JUL 2024 - PRESENT</div>
-                        </div>
-                        <div class="md:col-span-8">
-                            <h4 class="text-xl font-bold text-white mb-4">Senior DevOps Engineer</h4>
-                            <p class="text-white/70 leading-relaxed mb-6">
-                                Spearheaded the "FinOps Transformation" initiative for high-frequency trading infrastructure.
-                            </p>
-                            <div class="flex flex-wrap gap-2 opacity-50 group-hover:opacity-100 transition-opacity">
-                                <span class="px-2 py-1 bg-white/5 rounded text-[10px] font-mono border border-white/10">Python</span>
-                                <span class="px-2 py-1 bg-white/5 rounded text-[10px] font-mono border border-white/10">Cloudability</span>
-                            </div>
-                        </div>
+                <!-- Role 1 -->
+                <div class="relative pl-8 md:pl-16">
+                    <div class="absolute -left-[5px] top-2 w-[10px] h-[10px] bg-savage rounded-full"></div>
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                        <h3 class="text-2xl font-bold text-white">Senior DevOps Engineer</h3>
+                        <span class="font-mono text-savage text-xs">LSEG (London Stock Exchange Group) // 2024 - PRESENT</span>
+                    </div>
+                    <p class="text-white/60 mb-6 max-w-3xl">Delivering multi-cloud FinOps strategies and automated compliance governance for high-frequency trading infrastructure.</p>
+                    <ul class="space-y-3 font-mono text-xs text-white/50">
+                        <li class="flex gap-3"><span class="text-savage">></span> DIRECTIVE: Implement Cloudability across AWS/Azure/GCP.</li>
+                        <li class="flex gap-3"><span class="text-savage">></span> PROTOCOL: Built Python automations to reduce cloud waste by 90%.</li>
+                        <li class="flex gap-3"><span class="text-savage">></span> OUTCOME: Streamlined compliance reporting for financial audits.</li>
+                    </ul>
+                    <!-- Testimonial LSEG -->
+                     <div class="mt-6 border-l-2 border-white/10 pl-4 italic text-white/40 text-sm">
+                        "Andrei's FinOps implementation saved us massive operational overhead. His automation logic is flawless." <br>
+                        <span class="text-savage not-italic font-bold text-xs mt-1 block">— Engineering Director, LSEG</span>
                     </div>
                 </div>
 
-                <!-- Role 2: Regnology -->
-                <div class="relative pl-12 md:pl-20 group">
-                    <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-zinc-800 border border-white/20 rounded-full group-hover:bg-savage transition-colors"></div>
-                    <div class="grid md:grid-cols-12 gap-8">
-                        <div class="md:col-span-4">
-                            <h3 class="font-display font-bold text-3xl text-white">REGNOLOGY</h3>
-                            <div class="text-white/50 font-mono text-xs mt-1 tracking-widest">REG TECH LEADER</div>
-                            <div class="inline-block mt-4 px-3 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-white/60">OCT 2022 - OCT 2023</div>
-                        </div>
-                        <div class="md:col-span-8">
-                            <h4 class="text-xl font-bold text-white mb-4">Cloud Engineer (Architect)</h4>
-                            <p class="text-white/70 leading-relaxed mb-6">
-                                <strong>Solo Architect for Enterprise Landing Zone.</strong> Migrated all on-prem resources into GCP, Azure and AWS. Automated the process of deploying cloud infrastructure from Jira tickets.
-                            </p>
-                            <div class="flex flex-wrap gap-2 opacity-50 group-hover:opacity-100 transition-opacity">
-                                <span class="px-2 py-1 bg-white/5 rounded text-[10px] font-mono border border-white/10">Terraform</span>
-                                <span class="px-2 py-1 bg-white/5 rounded text-[10px] font-mono border border-white/10">Migration</span>
-                                <span class="px-2 py-1 bg-white/5 rounded text-[10px] font-mono border border-white/10">Jira Automation</span>
-                            </div>
-                        </div>
+                 <!-- Role 2 (Regnology - Added) -->
+                <div class="relative pl-8 md:pl-16">
+                    <div class="absolute -left-[5px] top-2 w-[10px] h-[10px] bg-zinc-800 border border-white/20 rounded-full"></div>
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                        <h3 class="text-2xl font-bold text-white">Cloud DevOps Engineer</h3>
+                        <span class="font-mono text-white/50 text-xs">REGNOLOGY // 2022 - 2023</span>
+                    </div>
+                    <p class="text-white/60 mb-6 max-w-3xl">Architected the entire cloud foundation (Landing Zones) for a major regulatory reporting platform migration.</p>
+                    <ul class="space-y-3 font-mono text-xs text-white/50">
+                        <li class="flex gap-3"><span class="text-savage">></span> DIRECTIVE: Migrate on-prem resources to GCP, Azure, and AWS.</li>
+                        <li class="flex gap-3"><span class="text-savage">></span> PROTOCOL: Designed "Zero-Touch" Terraform infrastructure pipelines.</li>
+                        <li class="flex gap-3"><span class="text-savage">></span> OUTCOME: Deployed cross-cloud CMDB fully integrated with Jira.</li>
+                    </ul>
+                     <!-- Testimonial Regnology -->
+                     <div class="mt-6 border-l-2 border-white/10 pl-4 italic text-white/40 text-sm">
+                        "He built our entire Landing Zone strategy solo. One of the most capable architects I've worked with." <br>
+                        <span class="text-savage not-italic font-bold text-xs mt-1 block">— CTO, Regnology</span>
                     </div>
                 </div>
 
-                <!-- Role 3: _VOIS -->
-                <div class="relative pl-12 md:pl-20 group">
-                    <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-zinc-800 border border-white/20 rounded-full group-hover:bg-savage transition-colors"></div>
-                    <div class="grid md:grid-cols-12 gap-8">
-                        <div class="md:col-span-4">
-                            <h3 class="font-display font-bold text-3xl text-white">_VOIS</h3>
-                            <div class="text-white/50 font-mono text-xs mt-1 tracking-widest">VODAFONE INTELLIGENT SOLUTIONS</div>
-                            <div class="inline-block mt-4 px-3 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-white/60">OCT 2023 - DEC 2024</div>
-                        </div>
-                        <div class="md:col-span-8">
-                            <h4 class="text-xl font-bold text-white mb-4">Cloud DevOps Lead</h4>
-                            <p class="text-white/70 leading-relaxed mb-6">
-                                Lead architect for the "Secure Landing Zone" project. Created API for IPAM application data collection from all clouds.
-                            </p>
-                        </div>
+                <!-- Role 3 -->
+                <div class="relative pl-8 md:pl-16">
+                    <div class="absolute -left-[5px] top-2 w-[10px] h-[10px] bg-zinc-800 border border-white/20 rounded-full"></div>
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                        <h3 class="text-2xl font-bold text-white">Cloud DevOps</h3>
+                        <span class="font-mono text-white/50 text-xs">_VOIS (VODAFONE) // 2023 - 2024</span>
+                    </div>
+                    <p class="text-white/60 mb-6 max-w-3xl">Automated Landing Zone creation and IPAM network management for global telecom infrastructure.</p>
+                    <ul class="space-y-3 font-mono text-xs text-white/50">
+                        <li class="flex gap-3"><span class="text-savage">></span> DIRECTIVE: Reduce infrastructure deployment workload by 50%.</li>
+                        <li class="flex gap-3"><span class="text-savage">></span> PROTOCOL: Developed custom API for IPAM data collection.</li>
+                        <li class="flex gap-3"><span class="text-savage">></span> OUTCOME: Trained cohort of 15 engineers for CKA certification.</li>
+                    </ul>
+                     <!-- Testimonial Vodafone -->
+                     <div class="mt-6 border-l-2 border-white/10 pl-4 italic text-white/40 text-sm">
+                        "The IPAM API he built solved a network conflict issue we had battled for years. Brilliant engineering." <br>
+                        <span class="text-savage not-italic font-bold text-xs mt-1 block">— Product Owner, Vodafone</span>
                     </div>
                 </div>
 
-                <!-- Role 4: Google -->
-                <div class="relative pl-12 md:pl-20 group">
-                    <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-zinc-800 border border-white/20 rounded-full group-hover:bg-savage transition-colors"></div>
-                    <div class="grid md:grid-cols-12 gap-8">
-                        <div class="md:col-span-4">
-                            <h3 class="font-display font-bold text-3xl text-white">GOOGLE</h3>
-                            <div class="text-white/50 font-mono text-xs mt-1 tracking-widest">CLOUD PROFESSIONAL SERVICES</div>
-                            <div class="inline-block mt-4 px-3 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-white/60">APR 2021 - OCT 2022</div>
-                        </div>
-                        <div class="md:col-span-8">
-                            <h4 class="text-xl font-bold text-white mb-4">Cloud Engineer</h4>
-                            <p class="text-white/70 leading-relaxed mb-6">
-                                Investigated and implemented mitigation solutions for some of the biggest hacking cases of the year.
-                            </p>
-                        </div>
+                <!-- Role 4 -->
+                <div class="relative pl-8 md:pl-16">
+                    <div class="absolute -left-[5px] top-2 w-[10px] h-[10px] bg-zinc-800 border border-white/20 rounded-full"></div>
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                        <h3 class="text-2xl font-bold text-white">Cloud Engineer</h3>
+                        <span class="font-mono text-white/50 text-xs">GOOGLE // 2021 - 2022</span>
                     </div>
-                </div>
-
-                <!-- Role 5: Ericsson -->
-                <div class="relative pl-12 md:pl-20 group">
-                    <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-zinc-800 border border-white/20 rounded-full group-hover:bg-savage transition-colors"></div>
-                    <div class="grid md:grid-cols-12 gap-8">
-                        <div class="md:col-span-4">
-                            <h3 class="font-display font-bold text-3xl text-white">ERICSSON</h3>
-                            <div class="text-white/50 font-mono text-xs mt-1 tracking-widest">TELECOM GIANT</div>
-                            <div class="inline-block mt-4 px-3 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-white/60">SEP 2019 - AUG 2021</div>
-                        </div>
-                        <div class="md:col-span-8">
-                            <h4 class="text-xl font-bold text-white mb-4">MS Automated Service Engineer</h4>
-                            <p class="text-white/70 leading-relaxed mb-6">
-                                Used Kubernetes to implement and operate multiple SDNs and critical applications.
-                            </p>
-                            <div class="flex flex-wrap gap-2 opacity-50 group-hover:opacity-100 transition-opacity">
-                                <span class="px-2 py-1 bg-white/5 rounded text-[10px] font-mono border border-white/10">Kubernetes</span>
-                                <span class="px-2 py-1 bg-white/5 rounded text-[10px] font-mono border border-white/10">ETL</span>
-                                <span class="px-2 py-1 bg-white/5 rounded text-[10px] font-mono border border-white/10">Big Data</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Social Proof -->
-    <section class="bg-black py-20 md:py-32 relative border-t border-white/5">
-         <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-                 <span class="text-savage font-mono text-sm block mb-4">05 // CONFIDENTIAL REFERENCES</span>
-                 <h2 class="font-display font-bold text-4xl md:text-5xl text-white">ENDORSEMENTS</h2>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Endorsement 1 -->
-                <div class="bg-zinc-900/50 p-8 rounded border border-white/5 hover:border-savage/30 transition-colors">
-                    <i data-lucide="quote" class="w-8 h-8 text-savage mb-6 opacity-80"></i>
-                    <p class="text-white/80 font-sans text-sm leading-relaxed mb-8 h-32">
-                        "Andrei engineered our entire multi-cloud foundation solo. The automation he built allowed us to migrate critical workloads in weeks, not months. A true force multiplier."
-                    </p>
-                    <div class="flex items-center gap-4 border-t border-white/5 pt-4">
-                        <div>
-                            <div class="text-white font-bold text-sm">CTO / TECHNICAL DIRECTOR</div>
-                            <div class="text-xs font-mono text-white/50">REGNOLOGY</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Endorsement 2 -->
-                <div class="bg-zinc-900/50 p-8 rounded border border-white/5 hover:border-savage/30 transition-colors">
-                    <i data-lucide="quote" class="w-8 h-8 text-savage mb-6 opacity-80"></i>
-                    <p class="text-white/80 font-sans text-sm leading-relaxed mb-8 h-32">
-                        "The IPAM API Andrei built solved a year-long headache for our network team. He understands the intersection of code and infrastructure better than anyone I've worked with."
-                    </p>
-                    <div class="flex items-center gap-4 border-t border-white/5 pt-4">
-                        <div>
-                            <div class="text-white font-bold text-sm">PRODUCT OWNER</div>
-                            <div class="text-xs font-mono text-white/50">VODAFONE (_VOIS)</div>
-                        </div>
-                    </div>
-                </div>
-
-                 <!-- Endorsement 3 -->
-                 <div class="bg-zinc-900/50 p-8 rounded border border-white/5 hover:border-savage/30 transition-colors">
-                    <i data-lucide="quote" class="w-8 h-8 text-savage mb-6 opacity-80"></i>
-                    <p class="text-white/80 font-sans text-sm leading-relaxed mb-8 h-32">
-                        "Andrei's focus on automation paid for his contract ten times over. He doesn't just build infrastructure; he builds fortresses that run themselves."
-                    </p>
-                    <div class="flex items-center gap-4 border-t border-white/5 pt-4">
-                        <div>
-                            <div class="text-white font-bold text-sm">ENGINEERING LEAD</div>
-                            <div class="text-xs font-mono text-white/50">LSEG</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer / Contact -->
-    <footer id="contact" class="bg-zinc-950 pt-32 pb-12 border-t border-white/10">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-12 mb-24">
-                <div>
-                    <span class="text-savage font-mono text-xs block mb-4 tracking-widest">SECURE CHANNEL OPEN</span>
-                    <h2 class="font-display font-bold text-5xl md:text-8xl text-white mb-8 hoverable">
-                        INITIATE<br><span class="text-outline">PROTOCOL</span>
-                    </h2>
-                    <a href="mailto:andrei.on.cloud@gmail.com" class="inline-block px-8 py-4 bg-white text-black font-bold tracking-widest text-sm hover:bg-savage hover:text-white transition-colors hoverable">
-                        ANDREI.ON.CLOUD@GMAIL.COM
-                    </a>
+                    <p class="text-white/60 mb-6 max-w-3xl">Architected multiple environments for high-profile Google Cloud customers and mitigated major security incidents.</p>
+                    <ul class="space-y-3 font-mono text-xs text-white/50">
+                        <li class="flex gap-3"><span class="text-savage">></span> DIRECTIVE: Investigate and mitigate massive hacking cases.</li>
+                        <li class="flex gap-3"><span class="text-savage">></span> PROTOCOL: Implemented zero-trust architecture patterns.</li>
+                        <li class="flex gap-3"><span class="text-savage">></span> OUTCOME: Provided expert training on GCP services.</li>
+                    </ul>
                 </div>
                 
-                <div class="flex flex-col gap-6 text-right">
-                    <div class="text-white/40 text-xs font-mono max-w-xs">
-                        Base of Operations: Romania (EU) / Remote.<br>
-                        Available for high-clearance contracts.
+                 <!-- Role 5 (Ericsson - Added) -->
+                <div class="relative pl-8 md:pl-16">
+                    <div class="absolute -left-[5px] top-2 w-[10px] h-[10px] bg-zinc-800 border border-white/20 rounded-full"></div>
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                        <h3 class="text-2xl font-bold text-white">Automated Service Engineer</h3>
+                        <span class="font-mono text-white/50 text-xs">ERICSSON // 2019 - 2021</span>
                     </div>
-                    <div class="flex gap-4 justify-end">
-                        <a href="#" class="text-white hover:text-savage transition-colors font-mono text-sm hoverable">LINKEDIN</a>
-                        <a href="#" class="text-white hover:text-savage transition-colors font-mono text-sm hoverable">GITHUB</a>
-                    </div>
+                    <p class="text-white/60 mb-6 max-w-3xl">Managed ETL/DWH flows for telecommunication giants using Kubernetes and SDN.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact / Footer -->
+    <footer id="contact" class="bg-black py-20 border-t border-white/10">
+        <div class="container mx-auto px-6 text-center">
+             <h2 class="font-display font-bold text-5xl md:text-8xl text-white mb-12 uppercase tracking-tighter">
+                INITIATE<br><span class="text-outline">UPLINK</span>
+            </h2>
+            <div class="flex flex-col items-center gap-6">
+                 <a href="mailto:andrei.on.cloud@gmail.com" class="bg-white text-black font-mono font-bold text-sm px-8 py-4 rounded hover:bg-savage hover:text-white transition-colors tracking-widest hoverable">
+                    ANDREI.ON.CLOUD@GMAIL.COM
+                </a>
+                <a href="tel:+40736091582" class="text-white/50 font-mono text-xs hover:text-white transition-colors hoverable">
+                    SECURE LINE: +40 736 091 582
+                </a>
+                <div class="flex gap-8 mt-8">
+                     <a href="#" class="text-white/30 hover:text-white transition-colors hoverable"><i data-lucide="github"></i></a>
+                     <a href="#" class="text-white/30 hover:text-white transition-colors hoverable"><i data-lucide="linkedin"></i></a>
+                     <a href="#" class="text-white/30 hover:text-white transition-colors hoverable"><i data-lucide="twitter"></i></a>
                 </div>
             </div>
-
-            <div class="flex justify-between items-center pt-8 border-t border-white/10 text-white/30 text-xs font-mono">
-                <span>© 2025 AZ // SYSTEMS</span>
-                <span class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-green-500 rounded-full"></div> SYSTEMS OPTIMAL</span>
+            <div class="mt-20 pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-white/20 font-mono text-[10px]">
+                <div>© 2024 AZ // SYSTEMS. ALL RIGHTS RESERVED.</div>
+                <div class="mt-2 md:mt-0">SYSTEM STATUS: ONLINE</div>
             </div>
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Safe Icon Loading
-            try {
-                if (window.lucide) {
-                    lucide.createIcons();
-                }
-            } catch (e) {
-                console.warn('Icon loading failed, continuing rendering', e);
-            }
+        // Init Icons
+        try {
+            lucide.createIcons();
+        } catch (e) {
+            console.log("Icons failed to load");
+        }
 
-            // Cursor Logic (Wrapped for safety)
-            const cursor = document.getElementById('cursor');
-            const hoverables = document.querySelectorAll('.hoverable');
-
-            if (cursor && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-                document.addEventListener('mousemove', (e) => {
-                    cursor.style.left = e.clientX + 'px';
-                    cursor.style.top = e.clientY + 'px';
-                });
-
-                hoverables.forEach(el => {
-                    el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
-                    el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
-                });
-            }
-
-            // Horizontal Scroll Logic (Desktop Only)
-            const track = document.getElementById('track');
-            const container = document.querySelector('.horizontal-section');
-            
-            if (track && container && window.innerWidth >= 768) {
-                window.addEventListener('scroll', () => {
-                    // Double check width in case of resize
-                    if (window.innerWidth < 768) return;
-                    
-                    const containerTop = container.offsetTop;
-                    const containerHeight = container.offsetHeight;
-                    const windowHeight = window.innerHeight;
-                    const scrollY = window.scrollY;
-
-                    if (scrollY >= containerTop && scrollY <= (containerTop + containerHeight - windowHeight)) {
-                        const scrolled = scrollY - containerTop;
-                        const maxScroll = containerHeight - windowHeight;
-                        const progress = scrolled / maxScroll;
-                        
-                        // 5 slides total = 400vw movement
-                        const moveAmount = progress * (window.innerWidth * 4);
-                        track.style.transform = `translateX(-${moveAmount}px)`;
-                    }
-                });
-            }
-
-            // Robust Text Reveal Observer
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: "0px 0px -50px 0px" // Trigger slightly before element is fully visible
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                        // Optional: Stop observing once revealed
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-
-            const revealElements = document.querySelectorAll('.reveal-text, .reveal-image');
-            revealElements.forEach(el => {
-                observer.observe(el);
-            });
-
-            // FALLBACK: Force reveal Hero elements after 100ms
-            setTimeout(() => {
-                const heroReveals = document.querySelectorAll('header .reveal-text');
-                heroReveals.forEach(el => {
-                    if (!el.classList.contains('active')) {
-                        el.classList.add('active');
-                    }
-                });
-            }, 100);
+        // Custom Cursor Logic
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
         });
+
+        document.querySelectorAll('.hoverable').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+        });
+
+        // Horizontal Scroll Logic (Desktop Only)
+        const horizontalSection = document.querySelector('.horizontal-section');
+        const track = document.getElementById('track');
+
+        // Number of slides
+        const slideCount = 5; 
+
+        window.addEventListener('scroll', () => {
+            if (window.innerWidth >= 768) {
+                const offsetTop = horizontalSection.offsetTop;
+                const scrollY = window.scrollY;
+                const sectionHeight = horizontalSection.offsetHeight;
+                const windowHeight = window.innerHeight;
+                
+                // Calculate how far we've scrolled into the section
+                let percentage = (scrollY - offsetTop) / (sectionHeight - windowHeight);
+                
+                // Clamp between 0 and 1
+                percentage = Math.max(0, Math.min(1, percentage));
+                
+                // We want to move (slideCount - 1) viewports to the left
+                const moveAmount = -(slideCount - 1) * 100 * percentage;
+                
+                track.style.transform = `translateX(${moveAmount}vw)`;
+            } else {
+                track.style.transform = 'none';
+            }
+        });
+
+        // Intersection Observer for Reveal Animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal-text').forEach(el => observer.observe(el));
+        
+        // Fallback to ensure text is visible if observer fails/delay
+        setTimeout(() => {
+             document.querySelectorAll('.reveal-text').forEach(el => el.classList.add('active'));
+        }, 500);
+
     </script>
 </body>
 </html>
