@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO & Identity -->
-    <title>Andrei Zaharia | Elite Cloud Architect</title>
-    <meta name="description" content="Portfolio of Andrei Zaharia, a Senior Cloud DevOps Engineer specializing in Multi-Cloud Architecture.">
+    <title>AZ // SYSTEMS | Cloud Architecture</title>
+    <meta name="description" content="Andrei Zaharia - Senior Cloud Architect. Specializing in high-security infrastructure, automated governance, and multi-cloud strategy for enterprise.">
     
-    <!-- Fonts: Syne (Futuristic/Bold) & Inter (Clean) -->
+    <!-- Fonts: Syne (Futuristic/Bold) & Inter (Clean) & JetBrains Mono (Code) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
     
     <!-- Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -25,18 +25,24 @@
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                         display: ['Syne', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
                         black: '#050505',
                         zinc: {
+                            850: '#151515',
                             900: '#101010',
-                            800: '#1a1a1a'
+                            950: '#0a0a0a'
                         },
-                        accent: '#FF3B30', // Industrial Red accent or keep blue? Let's go Cyber Blue to maintain identity but style like Orano
-                        cyber: '#00F0FF'
+                        // "Electric Blue" for Enterprise Trust + "Signal Orange" for alerts
+                        cyber: '#3B82F6', 
+                        savage: '#ff3333' 
                     },
                     cursor: {
                         'none': 'none',
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #1a1a1a 1px, transparent 1px), linear-gradient(to bottom, #1a1a1a 1px, transparent 1px)",
                     }
                 }
             }
@@ -44,45 +50,55 @@
     </script>
 
     <style>
-        /* Hide Default Cursor */
-        body { cursor: none; background-color: #050505; color: #ffffff; overflow-x: hidden; }
+        /* Base Reset */
+        body { 
+            cursor: none; 
+            background-color: #050505; 
+            color: #e5e5e5; 
+            overflow-x: hidden; 
+        }
         
         /* Custom Cursor */
         #cursor {
             position: fixed;
             top: 0; left: 0;
-            width: 20px; height: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            width: 12px; height: 12px;
+            background-color: #fff;
             border-radius: 50%;
             pointer-events: none;
             transform: translate(-50%, -50%);
             z-index: 9999;
-            transition: width 0.3s, height 0.3s, background-color 0.3s;
+            transition: width 0.3s, height 0.3s, background-color 0.3s, mix-blend-mode 0.3s;
             mix-blend-mode: difference;
         }
         #cursor.hovered {
-            width: 50px; height: 50px;
+            width: 80px; height: 80px;
             background-color: white;
-            border-color: white;
             mix-blend-mode: exclusion;
+            opacity: 0.1;
         }
 
         /* Scrollbar */
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: #333; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
 
-        /* Typography Utilities */
+        /* Typography Effects */
         .text-outline {
-            -webkit-text-stroke: 1px rgba(255,255,255,0.2);
+            -webkit-text-stroke: 1px rgba(255,255,255,0.3);
             color: transparent;
+            transition: all 0.5s ease;
+        }
+        .group:hover .text-outline {
+            -webkit-text-stroke: 1px #fff;
+            color: transparent; 
         }
         
         /* Animations */
         .reveal-text {
             clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
             opacity: 0;
-            transform: translateY(50px);
+            transform: translateY(30px);
             transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .reveal-text.active {
@@ -91,18 +107,10 @@
             transform: translateY(0);
         }
 
-        .reveal-image {
-            clip-path: inset(100% 0 0 0);
-            transition: clip-path 1.5s cubic-bezier(0.77, 0, 0.175, 1);
-        }
-        .reveal-image.active {
-            clip-path: inset(0 0 0 0);
-        }
-
         /* Horizontal Scroll Logic */
         .horizontal-section {
             position: relative;
-            height: 400vh; /* 4 slides * 100vh */
+            height: 500vh; /* 5 slides (Intro + 4 Cases) * 100vh */
         }
         .sticky-wrapper {
             position: sticky;
@@ -122,9 +130,13 @@
             height: 100vh;
             flex-shrink: 0;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
+            position: relative;
+        }
+        
+        /* Grid Background */
+        .bg-grid {
+            background-size: 40px 40px;
+            mask-image: radial-gradient(circle at center, black 60%, transparent 100%);
         }
     </style>
 <script type="importmap">
@@ -139,170 +151,288 @@
 }
 </script>
 </head>
-<body class="antialiased selection:bg-cyber selection:text-black">
+<body class="antialiased selection:bg-white selection:text-black">
 
     <!-- Custom Cursor -->
     <div id="cursor"></div>
 
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 p-8 flex justify-between items-center mix-blend-difference text-white">
-        <a href="#" class="font-display font-bold text-xl tracking-tighter hoverable">AZ. ARCHITECT</a>
+    <nav class="fixed top-0 left-0 right-0 z-50 p-6 md:p-10 flex justify-between items-start mix-blend-difference text-white pointer-events-none">
+        <div class="pointer-events-auto">
+            <a href="#" class="font-display font-bold text-2xl tracking-tighter hoverable block leading-none">
+                AZ // SYSTEMS<span class="text-savage">.</span>
+            </a>
+            <span class="font-mono text-[10px] tracking-widest opacity-60 block mt-1">ANDREI ZAHARIA // ARCHITECT</span>
+        </div>
         
-        <div class="hidden md:flex gap-12 font-sans text-xs tracking-widest uppercase">
-            <a href="#projects-trigger" class="hover:text-cyber transition-colors hoverable">Case Studies</a>
-            <a href="#expertise" class="hover:text-cyber transition-colors hoverable">Expertise</a>
-            <a href="#contact" class="hover:text-cyber transition-colors hoverable">Contact</a>
+        <div class="hidden md:flex flex-col items-end gap-2 font-mono text-xs tracking-widest uppercase pointer-events-auto">
+            <a href="#projects-trigger" class="hover:text-savage transition-colors hoverable">[01] Case Studies</a>
+            <a href="#expertise" class="hover:text-savage transition-colors hoverable">[02] Tech Stack</a>
+            <a href="#experience" class="hover:text-savage transition-colors hoverable">[03] Experience Log</a>
+            <a href="#contact" class="hover:text-savage transition-colors hoverable">[04] Secure Comms</a>
         </div>
 
-        <a href="#contact" class="border border-white/20 px-6 py-2 rounded-full text-xs font-bold tracking-widest hover:bg-white hover:text-black transition-all hoverable">
-            AVAILABLE FOR HIRE
+        <a href="#contact" class="pointer-events-auto md:hidden border border-white/20 px-4 py-2 rounded-full text-xs font-bold hover:bg-white hover:text-black transition-all hoverable">
+            MENU
         </a>
     </nav>
 
     <!-- Hero Section -->
     <header class="relative min-h-screen flex flex-col justify-center px-6 md:px-20 overflow-hidden bg-black">
-        <!-- Background Video/Image Placeholder -->
-        <div class="absolute inset-0 opacity-20">
-            <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,240,255,0.1),transparent_70%)]"></div>
-            <!-- Grid -->
-            <div class="w-full h-full" style="background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px); background-size: 50px 50px;"></div>
+        <!-- Abstract Background -->
+        <div class="absolute inset-0 opacity-20 pointer-events-none">
+            <div class="absolute inset-0 bg-grid-pattern opacity-30"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50vw] h-[50vw] bg-white/5 rounded-full blur-[120px]"></div>
         </div>
 
-        <div class="relative z-10 max-w-7xl">
-            <div class="mb-4 flex items-center gap-4 overflow-hidden">
-                <span class="block h-px w-12 bg-cyber"></span>
-                <span class="text-cyber font-mono text-sm tracking-widest reveal-text">SENIOR DEVOPS ENGINEER</span>
+        <div class="relative z-10 max-w-[90vw]">
+            <div class="mb-6 flex items-center gap-4 overflow-hidden">
+                <span class="block h-[2px] w-8 bg-savage"></span>
+                <span class="text-savage font-mono text-sm tracking-widest font-bold reveal-text">PRINCIPAL INFRASTRUCTURE CONSULTANT</span>
             </div>
 
-            <h1 class="font-display font-bold text-[12vw] leading-[0.85] tracking-tighter text-white uppercase mix-blend-overlay opacity-50 select-none">
-                Cloud
+            <h1 class="font-display font-bold text-[13vw] leading-[0.8] tracking-tighter text-white uppercase reveal-text mix-blend-screen">
+                ENTERPRISE
             </h1>
-            <h1 class="font-display font-bold text-[12vw] leading-[0.85] tracking-tighter text-white uppercase mb-8 reveal-text">
-                Architect
+            <h1 class="font-display font-bold text-[13vw] leading-[0.8] tracking-tighter text-outline uppercase mb-8 reveal-text">
+                ARCHITECT
             </h1>
 
-            <div class="flex flex-col md:flex-row gap-12 items-start max-w-4xl mt-12">
-                <p class="font-sans text-white/60 text-lg md:text-xl leading-relaxed max-w-xl reveal-text" style="transition-delay: 0.2s;">
-                    Engineering production-ready, multi-cloud platforms for the world's most demanding enterprises. Specializing in high-security governance and automated infrastructure.
-                </p>
+            <div class="grid md:grid-cols-12 gap-8 mt-12 items-end">
+                <div class="md:col-span-5 reveal-text" style="transition-delay: 0.2s;">
+                    <p class="font-sans text-white/70 text-lg md:text-xl leading-relaxed">
+                        I engineer <strong>production-ready, multi-cloud platforms</strong> for Tier-1 global organizations. Specializing in Landing Zone architecture, Python automation, and zero-trust security.
+                    </p>
+                </div>
                 
-                <div class="flex flex-col gap-4 reveal-text" style="transition-delay: 0.4s;">
-                    <div class="flex items-center gap-4 group hoverable cursor-pointer">
-                        <div class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-cyber group-hover:border-cyber transition-all">
-                            <i data-lucide="arrow-down" class="group-hover:text-black transition-colors"></i>
-                        </div>
-                        <span class="font-mono text-xs tracking-widest">SCROLL TO EXPLORE</span>
-                    </div>
+                <div class="md:col-span-7 flex flex-col md:flex-row gap-8 justify-end reveal-text font-mono text-xs text-white/50" style="transition-delay: 0.4s;">
+                   <div>
+                       <span class="block text-white mb-1">CLIENTS</span>
+                       REGNOLOGY, GOOGLE, LSEG
+                   </div>
+                   <div>
+                       <span class="block text-white mb-1">SPECIALTY</span>
+                       TERRAFORM, KUBERNETES, PYTHON
+                   </div>
+                   <div>
+                       <span class="block text-white mb-1">STATUS</span>
+                       <span class="text-savage animate-pulse">●</span> AVAILABLE FOR CONTRACT
+                   </div>
                 </div>
             </div>
         </div>
-
-        <!-- Abstract Decorative Elements -->
-        <div class="absolute right-0 bottom-0 w-1/3 h-1/3 bg-gradient-to-t from-cyber/10 to-transparent blur-3xl"></div>
     </header>
 
     <!-- Project Gallery (Horizontal Scroll) -->
-    <!-- We use a very tall container to allow for scroll "time" -->
-    <div id="projects-trigger" class="horizontal-section bg-zinc-900">
+    <div id="projects-trigger" class="horizontal-section bg-zinc-950">
         <div class="sticky-wrapper">
             <div class="horizontal-track" id="track">
                 
                 <!-- Slide 1: Intro Card -->
-                <div class="slide bg-black border-r border-white/5">
-                    <div class="max-w-4xl w-full px-6">
-                        <span class="text-cyber font-mono text-xl mb-4 block">01 / SELECTED WORKS</span>
+                <div class="slide bg-black border-r border-white/5 items-center justify-center">
+                    <div class="max-w-4xl w-full px-6 text-center md:text-left">
+                        <span class="text-savage font-mono text-xl mb-4 block">01 // CASE STUDIES</span>
                         <h2 class="font-display font-bold text-6xl md:text-8xl text-white mb-8">
-                            MISSION<br>CRITICAL<br><span class="text-outline">OPERATIONS</span>
+                            PROOF OF<br><span class="text-outline">COMPETENCE</span>
                         </h2>
-                        <div class="flex gap-4">
-                            <i data-lucide="arrow-right" class="w-12 h-12 text-white/20"></i>
+                        <div class="flex flex-col md:flex-row gap-8 text-white/50 font-mono text-sm max-w-2xl">
+                            <p>Strategic interventions for Fortune 500 clients. These projects demonstrate ability to operate autonomously and deliver critical infrastructure.</p>
+                            <div class="flex items-center gap-2 text-white hoverable">
+                                <span>SCROLL TO DECLASSIFY</span>
+                                <i data-lucide="arrow-right"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Slide 2: Project 1 -->
-                <div class="slide relative overflow-hidden group">
-                    <!-- Background Image -->
-                    <div class="absolute inset-0 bg-zinc-900">
-                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover opacity-30 group-hover:scale-105 transition-transform duration-1000 ease-out" alt="FinOps">
-                    </div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+                <!-- Slide 2: Regnology (SOLO ARCHITECT) -->
+                <div class="slide relative overflow-hidden bg-zinc-900 border-r border-white/5">
+                    <div class="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop')] bg-cover bg-center"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
                     
-                    <div class="relative z-10 container mx-auto px-6 grid md:grid-cols-2 gap-12 items-end h-full pb-24">
-                        <div>
-                            <div class="flex items-center gap-2 mb-4">
-                                <span class="bg-cyber text-black text-xs font-bold px-2 py-1">CONFIDENTIAL</span>
-                                <span class="text-white/60 font-mono text-xs">LSEG (London Stock Exchange)</span>
+                    <div class="relative z-10 w-full h-full p-8 md:p-20 flex flex-col justify-end">
+                        <div class="grid md:grid-cols-2 gap-12 items-end">
+                            <div>
+                                <div class="flex items-center gap-3 mb-6">
+                                    <span class="bg-savage text-black text-xs font-bold px-2 py-1 font-mono">REGULATORY TECH</span>
+                                    <span class="text-white/60 font-mono text-xs tracking-widest">REGNOLOGY</span>
+                                </div>
+                                <h3 class="font-display font-bold text-5xl md:text-6xl text-white mb-6 leading-none">THE SOLO<br>LANDING ZONE</h3>
+                                
+                                <div class="space-y-6 max-w-md">
+                                    <div>
+                                        <h4 class="text-savage font-mono text-xs mb-2">THE CHALLENGE</h4>
+                                        <p class="text-white/70 text-sm leading-relaxed">Client needed to migrate massive on-prem workloads to AWS/GCP/Azure but lacked a unified foundation. Manual deployment was causing security drift.</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-savage font-mono text-xs mb-2">THE ARCHITECTURE</h4>
+                                        <p class="text-white/70 text-sm leading-relaxed">I single-handedly designed and built the entire Landing Zone ecosystem using Terraform. Created a "Zero-Touch" deployment pipeline triggered via Jira workflows.</p>
+                                    </div>
+                                </div>
                             </div>
-                            <h3 class="font-display font-bold text-5xl md:text-7xl text-white mb-6">FinOps Governance</h3>
-                            <div class="h-px w-24 bg-cyber mb-6"></div>
-                            <ul class="space-y-2 font-mono text-sm text-white/80 mb-8">
-                                <li>+ Automated Cost Controls</li>
-                                <li>+ Multi-Cloud Aggregation</li>
-                                <li>+ $1.2M Annual Savings</li>
-                            </ul>
-                            <a href="#" class="inline-flex items-center gap-3 text-white hover:text-cyber transition-colors hoverable">
-                                <span class="tracking-widest text-sm font-bold">VIEW CASE STUDY</span>
-                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                            </a>
+
+                            <div class="bg-white/5 backdrop-blur-md p-8 border border-white/10 rounded-lg">
+                                <div class="text-xs font-mono text-white/50 mb-4 border-b border-white/10 pb-2">IMPACT METRICS</div>
+                                <div class="grid grid-cols-2 gap-8 mb-8">
+                                    <div>
+                                        <div class="text-4xl font-display font-bold text-white">100%</div>
+                                        <div class="text-xs text-white/50">Solo Implementation</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-4xl font-display font-bold text-white">3-Cloud</div>
+                                        <div class="text-xs text-white/50">Unified Strategy</div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 bg-black/50 border border-white/20 text-xs font-mono text-white rounded">Terraform Expert</span>
+                                    <span class="px-2 py-1 bg-black/50 border border-white/20 text-xs font-mono text-white rounded">Multi-Cloud</span>
+                                    <span class="px-2 py-1 bg-black/50 border border-white/20 text-xs font-mono text-white rounded">Jira Automation</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Slide 3: Project 2 -->
-                <div class="slide relative overflow-hidden group">
-                     <!-- Background Image -->
-                     <div class="absolute inset-0 bg-zinc-900">
-                        <img src="https://images.unsplash.com/photo-1558494949-ef526b0042a0?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover opacity-30 group-hover:scale-105 transition-transform duration-1000 ease-out" alt="Landing Zone">
-                    </div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
-
-                    <div class="relative z-10 container mx-auto px-6 grid md:grid-cols-2 gap-12 items-end h-full pb-24">
-                        <div>
-                             <div class="flex items-center gap-2 mb-4">
-                                <span class="bg-white text-black text-xs font-bold px-2 py-1">ARCHITECT ROLE</span>
-                                <span class="text-white/60 font-mono text-xs">Vodafone</span>
+                <!-- Slide 3: LSEG Case Study -->
+                <div class="slide relative overflow-hidden bg-zinc-900 border-r border-white/5">
+                    <div class="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=2232&auto=format&fit=crop')] bg-cover bg-center"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
+                    
+                    <div class="relative z-10 w-full h-full p-8 md:p-20 flex flex-col justify-end">
+                        <div class="grid md:grid-cols-2 gap-12 items-end">
+                            <div>
+                                <div class="flex items-center gap-3 mb-6">
+                                    <span class="bg-white text-black text-xs font-bold px-2 py-1 font-mono">FINTECH</span>
+                                    <span class="text-white/60 font-mono text-xs tracking-widest">LSEG (LONDON STOCK EXCHANGE)</span>
+                                </div>
+                                <h3 class="font-display font-bold text-5xl md:text-6xl text-white mb-6 leading-none">GLOBAL FINOPS<br>GOVERNANCE</h3>
+                                
+                                <div class="space-y-6 max-w-md">
+                                    <div>
+                                        <h4 class="text-savage font-mono text-xs mb-2">THE CHALLENGE</h4>
+                                        <p class="text-white/70 text-sm leading-relaxed">Uncontrolled multi-cloud spend across AWS/Azure/GCP creating a $5M/month bleed. Compliance reporting was manual.</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-savage font-mono text-xs mb-2">THE ARCHITECTURE</h4>
+                                        <p class="text-white/70 text-sm leading-relaxed">Implemented Cloudability for centralized visibility. Engineered Python-based auto-remediation bots to terminate non-compliant resources (orphan snapshots, oversized EC2s).</p>
+                                    </div>
+                                </div>
                             </div>
-                            <h3 class="font-display font-bold text-5xl md:text-7xl text-white mb-6">Zero-Trust Vending</h3>
-                            <div class="h-px w-24 bg-cyber mb-6"></div>
-                            <ul class="space-y-2 font-mono text-sm text-white/80 mb-8">
-                                <li>+ Automated Account Vending</li>
-                                <li>+ VPC Service Controls</li>
-                                <li>+ 45min Provisioning Time</li>
-                            </ul>
-                            <a href="#" class="inline-flex items-center gap-3 text-white hover:text-cyber transition-colors hoverable">
-                                <span class="tracking-widest text-sm font-bold">VIEW CASE STUDY</span>
-                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                            </a>
+
+                            <div class="bg-white/5 backdrop-blur-md p-8 border border-white/10 rounded-lg">
+                                <div class="text-xs font-mono text-white/50 mb-4 border-b border-white/10 pb-2">IMPACT METRICS</div>
+                                <div class="grid grid-cols-2 gap-8 mb-8">
+                                    <div>
+                                        <div class="text-4xl font-display font-bold text-white">$1.2M</div>
+                                        <div class="text-xs text-white/50">Annual Savings</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-4xl font-display font-bold text-white">90%</div>
+                                        <div class="text-xs text-white/50">Auto-Compliance</div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 bg-black/50 border border-white/20 text-xs font-mono text-white rounded">Python</span>
+                                    <span class="px-2 py-1 bg-black/50 border border-white/20 text-xs font-mono text-white rounded">Cloudability</span>
+                                    <span class="px-2 py-1 bg-black/50 border border-white/20 text-xs font-mono text-white rounded">FinOps</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Slide 4: Project 3 -->
-                <div class="slide relative overflow-hidden group">
-                     <!-- Background Image -->
-                     <div class="absolute inset-0 bg-zinc-900">
-                        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1965&auto=format&fit=crop" class="w-full h-full object-cover opacity-30 group-hover:scale-105 transition-transform duration-1000 ease-out" alt="AI Engine">
-                    </div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
-
-                    <div class="relative z-10 container mx-auto px-6 grid md:grid-cols-2 gap-12 items-end h-full pb-24">
-                        <div>
-                             <div class="flex items-center gap-2 mb-4">
-                                <span class="bg-cyber text-black text-xs font-bold px-2 py-1">STARTUP</span>
-                                <span class="text-white/60 font-mono text-xs">Stealth Fintech</span>
+                <!-- Slide 4: Vodafone (Added) -->
+                <div class="slide relative overflow-hidden bg-zinc-900 border-r border-white/5">
+                    <div class="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1544197150-b99a580bbcbf?q=80&w=2071&auto=format&fit=crop')] bg-cover bg-center"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
+                    
+                    <div class="relative z-10 w-full h-full p-8 md:p-20 flex flex-col justify-end">
+                        <div class="grid md:grid-cols-2 gap-12 items-end">
+                            <div>
+                                <div class="flex items-center gap-3 mb-6">
+                                    <span class="bg-savage text-black text-xs font-bold px-2 py-1 font-mono">TELECOM</span>
+                                    <span class="text-white/60 font-mono text-xs tracking-widest">_VOIS (VODAFONE)</span>
+                                </div>
+                                <h3 class="font-display font-bold text-5xl md:text-6xl text-white mb-6 leading-none">CROSS-CLOUD<br>IPAM NEXUS</h3>
+                                
+                                <div class="space-y-6 max-w-md">
+                                    <div>
+                                        <h4 class="text-savage font-mono text-xs mb-2">THE CHALLENGE</h4>
+                                        <p class="text-white/70 text-sm leading-relaxed">Network collisions and manual IP tracking across massive AWS/GCP hybrid environments were slowing down infrastructure scaling.</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-savage font-mono text-xs mb-2">THE ARCHITECTURE</h4>
+                                        <p class="text-white/70 text-sm leading-relaxed">Engineered a custom API to centralize IPAM data. Created a library of hardened Terraform modules to serve as the standard "building blocks" for all cloud teams.</p>
+                                    </div>
+                                </div>
                             </div>
-                            <h3 class="font-display font-bold text-5xl md:text-7xl text-white mb-6">AI Market Sentiment</h3>
-                            <div class="h-px w-24 bg-cyber mb-6"></div>
-                             <ul class="space-y-2 font-mono text-sm text-white/80 mb-8">
-                                <li>+ NLP Data Pipeline</li>
-                                <li>+ Kubernetes Autoscaling</li>
-                                <li>+ 99.99% Uptime</li>
-                            </ul>
-                            <a href="#" class="inline-flex items-center gap-3 text-white hover:text-cyber transition-colors hoverable">
-                                <span class="tracking-widest text-sm font-bold">VIEW CASE STUDY</span>
-                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                            </a>
+
+                            <div class="bg-white/5 backdrop-blur-md p-8 border border-white/10 rounded-lg">
+                                <div class="text-xs font-mono text-white/50 mb-4 border-b border-white/10 pb-2">IMPACT METRICS</div>
+                                <div class="grid grid-cols-2 gap-8 mb-8">
+                                    <div>
+                                        <div class="text-4xl font-display font-bold text-white">50%</div>
+                                        <div class="text-xs text-white/50">Ops Load Reduction</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-4xl font-display font-bold text-white">API</div>
+                                        <div class="text-xs text-white/50">Custom IPAM Tool</div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 bg-black/50 border border-white/20 text-xs font-mono text-white rounded">API Dev</span>
+                                    <span class="px-2 py-1 bg-black/50 border border-white/20 text-xs font-mono text-white rounded">Terraform Modules</span>
+                                    <span class="px-2 py-1 bg-black/50 border border-white/20 text-xs font-mono text-white rounded">Hybrid Net</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 5: Stealth AI & Python -->
+                <div class="slide relative overflow-hidden bg-zinc-900">
+                    <div class="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1965&auto=format&fit=crop')] bg-cover bg-center"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
+                    
+                    <div class="relative z-10 w-full h-full p-8 md:p-20 flex flex-col justify-end">
+                        <div class="grid md:grid-cols-2 gap-12 items-end">
+                            <div>
+                                <div class="flex items-center gap-3 mb-6">
+                                    <span class="bg-savage text-black text-xs font-bold px-2 py-1 font-mono">STEALTH AI</span>
+                                    <span class="text-white/60 font-mono text-xs tracking-widest">DATA ENGINEERING</span>
+                                </div>
+                                <h3 class="font-display font-bold text-5xl md:text-6xl text-white mb-6 leading-none">SENTIMENT<br>GRID ENGINE</h3>
+                                
+                                <div class="space-y-6 max-w-md">
+                                    <div>
+                                        <h4 class="text-savage font-mono text-xs mb-2">THE CHALLENGE</h4>
+                                        <p class="text-white/70 text-sm leading-relaxed">Needed to ingest TBs of unstructured web data for real-time sentiment analysis using Python and AI.</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-savage font-mono text-xs mb-2">THE ARCHITECTURE</h4>
+                                        <p class="text-white/70 text-sm leading-relaxed">Built scraping application with Python. Implemented GitLab CI pipelines for automated model deployment. Designed autoscaling K8s infrastructure.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white/5 backdrop-blur-md p-8 border border-white/10 rounded-lg">
+                                <div class="text-xs font-mono text-white/50 mb-4 border-b border-white/10 pb-2">IMPACT METRICS</div>
+                                <div class="grid grid-cols-2 gap-8 mb-8">
+                                    <div>
+                                        <div class="text-4xl font-display font-bold text-white">99.9%</div>
+                                        <div class="text-xs text-white/50">Uptime Reliability</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-4xl font-display font-bold text-white">CI/CD</div>
+                                        <div class="text-xs text-white/50">GitLab Pipelines</div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 bg-black/50 border border-white/20 text-xs font-mono text-white rounded">Python</span>
+                                    <span class="px-2 py-1 bg-black/50 border border-white/20 text-xs font-mono text-white rounded">GitLab CI</span>
+                                    <span class="px-2 py-1 bg-black/50 border border-white/20 text-xs font-mono text-white rounded">Data Engineering</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -311,185 +441,210 @@
         </div>
     </div>
 
-    <!-- Expertise Section -->
-    <section id="expertise" class="bg-black py-32 border-t border-white/10">
+    <!-- CV Replacement Section -->
+    <section id="experience" class="bg-black py-32 border-t border-white/10">
         <div class="container mx-auto px-6">
-            <div class="grid md:grid-cols-12 gap-12">
-                <div class="md:col-span-4">
-                    <span class="text-cyber font-mono text-sm block mb-4">02 / CAPABILITIES</span>
-                    <h2 class="font-display font-bold text-4xl md:text-5xl text-white mb-8">TECHNICAL<br>ARSENAL</h2>
-                    <p class="text-white/60 leading-relaxed max-w-sm">
-                        A comprehensive suite of enterprise-grade tools and methodologies designed for scale, security, and speed.
-                    </p>
+            <div class="flex flex-col md:flex-row justify-between items-end mb-24">
+                <div>
+                    <span class="text-savage font-mono text-sm block mb-4">03 // EXPERIENCE LOG</span>
+                    <h2 class="font-display font-bold text-5xl md:text-7xl text-white">FULL CAREER<br>HISTORY</h2>
                 </div>
-                
-                <div class="md:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
-                    <!-- Skill Group -->
-                    <div class="group hoverable">
-                        <div class="h-px w-full bg-white/20 mb-6 group-hover:bg-cyber transition-colors"></div>
-                        <h3 class="font-display font-bold text-2xl text-white mb-4">Cloud Architecture</h3>
-                        <ul class="space-y-3">
-                            <li class="flex justify-between text-sm text-white/70">
-                                <span>Google Cloud Platform</span>
-                                <span class="text-cyber font-mono">98%</span>
-                            </li>
-                            <li class="flex justify-between text-sm text-white/70">
-                                <span>AWS</span>
-                                <span class="text-cyber font-mono">95%</span>
-                            </li>
-                            <li class="flex justify-between text-sm text-white/70">
-                                <span>Microsoft Azure</span>
-                                <span class="text-cyber font-mono">90%</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Skill Group -->
-                    <div class="group hoverable">
-                         <div class="h-px w-full bg-white/20 mb-6 group-hover:bg-cyber transition-colors"></div>
-                        <h3 class="font-display font-bold text-2xl text-white mb-4">Infrastructure as Code</h3>
-                         <ul class="space-y-3">
-                            <li class="flex justify-between text-sm text-white/70">
-                                <span>Terraform / HCL</span>
-                                <span class="text-cyber font-mono">99%</span>
-                            </li>
-                            <li class="flex justify-between text-sm text-white/70">
-                                <span>Kubernetes / Helm</span>
-                                <span class="text-cyber font-mono">98%</span>
-                            </li>
-                            <li class="flex justify-between text-sm text-white/70">
-                                <span>Ansible</span>
-                                <span class="text-cyber font-mono">92%</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                     <!-- Skill Group -->
-                     <div class="group hoverable">
-                         <div class="h-px w-full bg-white/20 mb-6 group-hover:bg-cyber transition-colors"></div>
-                        <h3 class="font-display font-bold text-2xl text-white mb-4">Security & Ops</h3>
-                         <ul class="space-y-3">
-                            <li class="flex justify-between text-sm text-white/70">
-                                <span>Zero Trust Arch</span>
-                                <span class="text-cyber font-mono">96%</span>
-                            </li>
-                            <li class="flex justify-between text-sm text-white/70">
-                                <span>FinOps / Cloudability</span>
-                                <span class="text-cyber font-mono">95%</span>
-                            </li>
-                            <li class="flex justify-between text-sm text-white/70">
-                                <span>GitHub Actions CI/CD</span>
-                                <span class="text-cyber font-mono">94%</span>
-                            </li>
-                        </ul>
-                    </div>
+                <div class="mt-8 md:mt-0">
+                    <a href="#" class="px-6 py-3 border border-white/20 rounded hover:bg-white hover:text-black transition-all font-mono text-xs tracking-widest hoverable flex items-center gap-2">
+                        <i data-lucide="download" class="w-4 h-4"></i> DOWNLOAD PDF VERSION
+                    </a>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Experience Timeline -->
-    <section class="bg-zinc-900 py-32 relative overflow-hidden">
-        <div class="container mx-auto px-6 relative z-10">
-            <span class="text-cyber font-mono text-sm block mb-12 text-center">03 / EXPERIENCE LOG</span>
             
-            <div class="max-w-4xl mx-auto space-y-24">
-                <!-- Job -->
-                <div class="relative pl-8 md:pl-0 border-l border-white/10 md:border-none">
-                    <div class="grid md:grid-cols-5 gap-8 items-center group hoverable">
-                        <div class="md:col-span-2 md:text-right">
-                            <div class="text-4xl font-display font-bold text-white mb-1">LSEG</div>
-                            <div class="text-cyber font-mono text-xs tracking-widest">CURRENT</div>
+            <div class="relative border-l border-white/10 ml-4 md:ml-12 space-y-20">
+                
+                <!-- Role 1: LSEG -->
+                <div class="relative pl-12 md:pl-20 group">
+                    <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-savage rounded-full"></div>
+                    <div class="grid md:grid-cols-12 gap-8">
+                        <div class="md:col-span-4">
+                            <h3 class="font-display font-bold text-3xl text-white">LSEG</h3>
+                            <div class="text-white/50 font-mono text-xs mt-1 tracking-widest">LONDON STOCK EXCHANGE GROUP</div>
+                            <div class="inline-block mt-4 px-3 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-savage">JUL 2024 - PRESENT</div>
                         </div>
-                        <div class="hidden md:flex md:col-span-1 justify-center">
-                            <div class="w-3 h-3 rounded-full bg-cyber ring-4 ring-black"></div>
-                        </div>
-                        <div class="md:col-span-2">
-                            <h4 class="text-xl font-bold text-white">Senior DevOps Engineer</h4>
-                            <p class="text-white/50 text-sm mt-2">Architecting global FinOps governance and automated compliance frameworks for financial data.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Job -->
-                <div class="relative pl-8 md:pl-0 border-l border-white/10 md:border-none">
-                    <div class="grid md:grid-cols-5 gap-8 items-center group hoverable">
-                        <div class="md:col-span-2 md:text-right">
-                            <div class="text-4xl font-display font-bold text-white mb-1">VOIS</div>
-                            <div class="text-white/40 font-mono text-xs tracking-widest">2023 - 2024</div>
-                        </div>
-                        <div class="hidden md:flex md:col-span-1 justify-center">
-                            <div class="w-3 h-3 rounded-full bg-white/20 ring-4 ring-black group-hover:bg-cyber transition-colors"></div>
-                        </div>
-                        <div class="md:col-span-2">
-                            <h4 class="text-xl font-bold text-white">Cloud DevOps Lead</h4>
-                            <p class="text-white/50 text-sm mt-2">Led implementation of secure Landing Zones and mentored engineering cohorts.</p>
+                        <div class="md:col-span-8">
+                            <h4 class="text-xl font-bold text-white mb-4">Senior DevOps Engineer</h4>
+                            <p class="text-white/70 leading-relaxed mb-6">
+                                Spearheaded the "FinOps Transformation" initiative for high-frequency trading infrastructure.
+                            </p>
+                            <div class="flex flex-wrap gap-2 opacity-50 group-hover:opacity-100 transition-opacity">
+                                <span class="px-2 py-1 bg-white/5 rounded text-[10px] font-mono border border-white/10">Python</span>
+                                <span class="px-2 py-1 bg-white/5 rounded text-[10px] font-mono border border-white/10">Cloudability</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                 <!-- Job -->
-                 <div class="relative pl-8 md:pl-0 border-l border-white/10 md:border-none">
-                    <div class="grid md:grid-cols-5 gap-8 items-center group hoverable">
-                        <div class="md:col-span-2 md:text-right">
-                            <div class="text-4xl font-display font-bold text-white mb-1">GOOGLE</div>
-                            <div class="text-white/40 font-mono text-xs tracking-widest">2021 - 2022</div>
+                <!-- Role 2: Regnology (Added) -->
+                <div class="relative pl-12 md:pl-20 group">
+                    <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-zinc-800 border border-white/20 rounded-full group-hover:bg-savage transition-colors"></div>
+                    <div class="grid md:grid-cols-12 gap-8">
+                        <div class="md:col-span-4">
+                            <h3 class="font-display font-bold text-3xl text-white">REGNOLOGY</h3>
+                            <div class="text-white/50 font-mono text-xs mt-1 tracking-widest">REG TECH LEADER</div>
+                            <div class="inline-block mt-4 px-3 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-white/60">OCT 2022 - OCT 2023</div>
                         </div>
-                        <div class="hidden md:flex md:col-span-1 justify-center">
-                            <div class="w-3 h-3 rounded-full bg-white/20 ring-4 ring-black group-hover:bg-cyber transition-colors"></div>
-                        </div>
-                        <div class="md:col-span-2">
-                            <h4 class="text-xl font-bold text-white">Cloud Engineer</h4>
-                            <p class="text-white/50 text-sm mt-2">High-profile security forensics and infrastructure architecture for enterprise clients.</p>
+                        <div class="md:col-span-8">
+                            <h4 class="text-xl font-bold text-white mb-4">Cloud Engineer (Architect)</h4>
+                            <p class="text-white/70 leading-relaxed mb-6">
+                                <strong>Solo Architect for Enterprise Landing Zone.</strong> Migrated all on-prem resources into GCP, Azure and AWS. Automated the process of deploying cloud infrastructure from Jira tickets.
+                            </p>
+                            <div class="flex flex-wrap gap-2 opacity-50 group-hover:opacity-100 transition-opacity">
+                                <span class="px-2 py-1 bg-white/5 rounded text-[10px] font-mono border border-white/10">Terraform</span>
+                                <span class="px-2 py-1 bg-white/5 rounded text-[10px] font-mono border border-white/10">Migration</span>
+                                <span class="px-2 py-1 bg-white/5 rounded text-[10px] font-mono border border-white/10">Jira Automation</span>
+                            </div>
                         </div>
                     </div>
+                </div>
+
+                <!-- Role 3: _VOIS -->
+                <div class="relative pl-12 md:pl-20 group">
+                    <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-zinc-800 border border-white/20 rounded-full group-hover:bg-savage transition-colors"></div>
+                    <div class="grid md:grid-cols-12 gap-8">
+                        <div class="md:col-span-4">
+                            <h3 class="font-display font-bold text-3xl text-white">_VOIS</h3>
+                            <div class="text-white/50 font-mono text-xs mt-1 tracking-widest">VODAFONE INTELLIGENT SOLUTIONS</div>
+                            <div class="inline-block mt-4 px-3 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-white/60">OCT 2023 - DEC 2024</div>
+                        </div>
+                        <div class="md:col-span-8">
+                            <h4 class="text-xl font-bold text-white mb-4">Cloud DevOps Lead</h4>
+                            <p class="text-white/70 leading-relaxed mb-6">
+                                Lead architect for the "Secure Landing Zone" project. Created API for IPAM application data collection from all clouds.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Role 4: Google -->
+                <div class="relative pl-12 md:pl-20 group">
+                    <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-zinc-800 border border-white/20 rounded-full group-hover:bg-savage transition-colors"></div>
+                    <div class="grid md:grid-cols-12 gap-8">
+                        <div class="md:col-span-4">
+                            <h3 class="font-display font-bold text-3xl text-white">GOOGLE</h3>
+                            <div class="text-white/50 font-mono text-xs mt-1 tracking-widest">CLOUD PROFESSIONAL SERVICES</div>
+                            <div class="inline-block mt-4 px-3 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-white/60">APR 2021 - OCT 2022</div>
+                        </div>
+                        <div class="md:col-span-8">
+                            <h4 class="text-xl font-bold text-white mb-4">Cloud Engineer</h4>
+                            <p class="text-white/70 leading-relaxed mb-6">
+                                Investigated and implemented mitigation solutions for some of the biggest hacking cases of the year.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Role 5: Ericsson (Added) -->
+                <div class="relative pl-12 md:pl-20 group">
+                    <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-zinc-800 border border-white/20 rounded-full group-hover:bg-savage transition-colors"></div>
+                    <div class="grid md:grid-cols-12 gap-8">
+                        <div class="md:col-span-4">
+                            <h3 class="font-display font-bold text-3xl text-white">ERICSSON</h3>
+                            <div class="text-white/50 font-mono text-xs mt-1 tracking-widest">TELECOM GIANT</div>
+                            <div class="inline-block mt-4 px-3 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-white/60">SEP 2019 - AUG 2021</div>
+                        </div>
+                        <div class="md:col-span-8">
+                            <h4 class="text-xl font-bold text-white mb-4">MS Automated Service Engineer</h4>
+                            <p class="text-white/70 leading-relaxed mb-6">
+                                Used Kubernetes to implement and operate multiple SDNs and critical applications.
+                            </p>
+                            <div class="flex flex-wrap gap-2 opacity-50 group-hover:opacity-100 transition-opacity">
+                                <span class="px-2 py-1 bg-white/5 rounded text-[10px] font-mono border border-white/10">Kubernetes</span>
+                                <span class="px-2 py-1 bg-white/5 rounded text-[10px] font-mono border border-white/10">ETL</span>
+                                <span class="px-2 py-1 bg-white/5 rounded text-[10px] font-mono border border-white/10">Big Data</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Matrix -->
+    <section id="expertise" class="py-20 bg-zinc-950 border-t border-white/10">
+        <div class="container mx-auto px-6">
+            <span class="text-savage font-mono text-sm block mb-12 text-center">02 // TECHNICAL ARSENAL</span>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+                <!-- Card -->
+                <div class="bg-black border border-white/10 p-6 rounded hover:border-savage/50 transition-colors">
+                    <i data-lucide="cloud" class="text-white mb-4"></i>
+                    <h4 class="font-bold text-white mb-2">Cloud Arch</h4>
+                    <p class="text-xs text-white/50 font-mono">GCP, AWS, Azure, Landing Zones, Org Policy</p>
+                </div>
+                 <!-- Card -->
+                 <div class="bg-black border border-white/10 p-6 rounded hover:border-savage/50 transition-colors">
+                    <i data-lucide="box" class="text-white mb-4"></i>
+                    <h4 class="font-bold text-white mb-2">Kubernetes</h4>
+                    <p class="text-xs text-white/50 font-mono">GKE, EKS, Helm, Istio, Autoscaling</p>
+                </div>
+                 <!-- Card -->
+                 <div class="bg-black border border-white/10 p-6 rounded hover:border-savage/50 transition-colors">
+                    <i data-lucide="code-2" class="text-white mb-4"></i>
+                    <h4 class="font-bold text-white mb-2">Python & Data</h4>
+                    <p class="text-xs text-white/50 font-mono">Automation, ETL, Pandas, Scraping, API</p>
+                </div>
+                 <!-- Card -->
+                 <div class="bg-black border border-white/10 p-6 rounded hover:border-savage/50 transition-colors">
+                    <i data-lucide="git-merge" class="text-white mb-4"></i>
+                    <h4 class="font-bold text-white mb-2">CI/CD</h4>
+                    <p class="text-xs text-white/50 font-mono">GitLab CI, GitHub Actions, ArgoCD</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials / Proof -->
-    <section class="bg-black py-32 flex items-center justify-center relative">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.03),transparent_70%)]"></div>
-        
+    <!-- Social Proof -->
+    <section class="bg-black py-32 flex items-center justify-center relative border-t border-white/5">
         <div class="container mx-auto px-6 text-center max-w-4xl relative z-10">
-            <i data-lucide="quote" class="w-12 h-12 text-cyber mx-auto mb-8 opacity-50"></i>
+            <i data-lucide="quote" class="w-12 h-12 text-savage mx-auto mb-8 opacity-80"></i>
             <h3 class="font-display font-bold text-3xl md:text-5xl text-white leading-tight mb-12 hoverable">
                 "Andrei doesn't just build infrastructure; he builds fortresses. His focus on automation paid for his contract ten times over."
             </h3>
             <div class="flex items-center justify-center gap-4">
-                <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center font-bold font-display">L</div>
                 <div class="text-left">
-                    <div class="text-white font-bold text-sm">Engineering Director</div>
-                    <div class="text-cyber text-xs font-mono">LSEG (London Stock Exchange)</div>
+                    <div class="text-white font-bold text-sm tracking-widest">ENGINEERING DIRECTOR</div>
+                    <div class="text-savage text-xs font-mono">LSEG (London Stock Exchange)</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer / Contact -->
-    <footer id="contact" class="bg-zinc-900 pt-32 pb-12 border-t border-white/10">
+    <footer id="contact" class="bg-zinc-950 pt-32 pb-12 border-t border-white/10">
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-12 mb-24">
                 <div>
+                    <span class="text-savage font-mono text-xs block mb-4 tracking-widest">SECURE CHANNEL OPEN</span>
                     <h2 class="font-display font-bold text-6xl md:text-8xl text-white mb-8 hoverable">
-                        LET'S TALK<br><span class="text-outline">INFRASTRUCTURE</span>
+                        INITIATE<br><span class="text-outline">PROTOCOL</span>
                     </h2>
-                    <a href="mailto:andrei.on.cloud@gmail.com" class="inline-block px-8 py-4 bg-cyber text-black font-bold tracking-widest text-sm hover:bg-white transition-colors hoverable">
-                        INITIATE CONTRACT
+                    <a href="mailto:andrei.on.cloud@gmail.com" class="inline-block px-8 py-4 bg-white text-black font-bold tracking-widest text-sm hover:bg-savage hover:text-white transition-colors hoverable">
+                        ANDREI.ON.CLOUD@GMAIL.COM
                     </a>
                 </div>
                 
                 <div class="flex flex-col gap-6 text-right">
-                    <a href="#" class="text-white hover:text-cyber transition-colors font-mono text-sm hoverable">LINKEDIN</a>
-                    <a href="#" class="text-white hover:text-cyber transition-colors font-mono text-sm hoverable">GITHUB</a>
-                    <a href="#" class="text-white hover:text-cyber transition-colors font-mono text-sm hoverable">DOWNLOAD CV</a>
+                    <div class="text-white/40 text-xs font-mono max-w-xs">
+                        Base of Operations: Romania (EU) / Remote.<br>
+                        Available for high-clearance contracts.
+                    </div>
+                    <div class="flex gap-4 justify-end">
+                        <a href="#" class="text-white hover:text-savage transition-colors font-mono text-sm hoverable">LINKEDIN</a>
+                        <a href="#" class="text-white hover:text-savage transition-colors font-mono text-sm hoverable">GITHUB</a>
+                    </div>
                 </div>
             </div>
 
             <div class="flex justify-between items-center pt-8 border-t border-white/10 text-white/30 text-xs font-mono">
-                <span>© 2025 ANDREI ZAHARIA</span>
-                <span>ROMANIA (EU) / REMOTE</span>
+                <span>© 2025 AZ // SYSTEMS</span>
+                <span class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-green-500 rounded-full"></div> SYSTEMS OPTIMAL</span>
             </div>
         </div>
     </footer>
@@ -530,8 +685,8 @@
                 const progress = scrolled / maxScroll;
                 
                 // Translate the track horizontally
-                // We have 4 slides, so we need to move (4-1) = 300vw
-                const moveAmount = progress * (window.innerWidth * 3);
+                // We have 5 slides (Intro + 4 Cases), so we need to move (5-1) = 400vw
+                const moveAmount = progress * (window.innerWidth * 4);
                 track.style.transform = `translateX(-${moveAmount}px)`;
             }
         });
